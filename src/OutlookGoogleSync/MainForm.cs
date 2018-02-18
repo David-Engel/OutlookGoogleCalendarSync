@@ -26,7 +26,7 @@ namespace OutlookGoogleSync
         public MainForm()
         {
             InitializeComponent();
-            label4.Text = label4.Text.Replace("{version}", System.Windows.Forms.Application.ProductVersion);
+            labelAbout.Text = labelAbout.Text.Replace("{version}", System.Windows.Forms.Application.ProductVersion);
 
             Instance = this;
 

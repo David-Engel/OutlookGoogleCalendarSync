@@ -70,7 +70,7 @@ namespace OutlookGoogleSync
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.label4 = new System.Windows.Forms.Label();
+            this.labelAbout = new System.Windows.Forms.Label();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -410,7 +410,7 @@ namespace OutlookGoogleSync
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.linkLabel1);
-            this.tabPage3.Controls.Add(this.label4);
+            this.tabPage3.Controls.Add(this.labelAbout);
             this.tabPage3.Location = new System.Drawing.Point(4, 29);
             this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage3.Name = "tabPage3";
@@ -434,14 +434,14 @@ namespace OutlookGoogleSync
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(4, 49);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(722, 182);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "David\'s Outlook to Google Calendar Sync\r\n\r\nVersion {version}\r\n\r\nby David Engel\r\n\r" +
+            this.labelAbout.Location = new System.Drawing.Point(4, 49);
+            this.labelAbout.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelAbout.Name = "label4";
+            this.labelAbout.Size = new System.Drawing.Size(722, 182);
+            this.labelAbout.TabIndex = 1;
+            this.labelAbout.Text = "David\'s Outlook to Google Calendar Sync\r\n\r\nVersion {version}\r\n\r\nby David Engel\r\n\r" +
     "\nOriginal Credit:\r\nOutlookGoogleSync by Zissis Siantidis\r\n";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.labelAbout.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // notifyIcon1
             // 
@@ -490,7 +490,7 @@ namespace OutlookGoogleSync
         private System.Windows.Forms.TextBox tbMinuteOffsets;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelAbout;
         private System.Windows.Forms.CheckBox cbAddAttendees;
         private System.Windows.Forms.CheckBox cbCreateFiles;
         private System.Windows.Forms.TextBox LogBox;

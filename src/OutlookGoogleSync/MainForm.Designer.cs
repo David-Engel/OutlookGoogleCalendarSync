@@ -41,79 +41,81 @@ namespace OutlookGoogleSync
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPageSync = new System.Windows.Forms.TabPage();
             this.buttonDeleteAll = new System.Windows.Forms.Button();
-            this.LogBox = new System.Windows.Forms.TextBox();
-            this.bSyncNow = new System.Windows.Forms.Button();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.cbAddReminders = new System.Windows.Forms.CheckBox();
-            this.cbAddAttendees = new System.Windows.Forms.CheckBox();
-            this.cbAddDescription = new System.Windows.Forms.CheckBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.cbMinimizeToTray = new System.Windows.Forms.CheckBox();
-            this.cbStartInTray = new System.Windows.Forms.CheckBox();
-            this.cbCreateFiles = new System.Windows.Forms.CheckBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.cbShowBubbleTooltips = new System.Windows.Forms.CheckBox();
-            this.cbSyncEveryHour = new System.Windows.Forms.CheckBox();
-            this.tbMinuteOffsets = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.bGetMyCalendars = new System.Windows.Forms.Button();
-            this.cbCalendars = new System.Windows.Forms.ComboBox();
-            this.bSave = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tbDaysInTheFuture = new System.Windows.Forms.NumericUpDown();
-            this.tbDaysInThePast = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.textBoxLogs = new System.Windows.Forms.TextBox();
+            this.buttonSyncNow = new System.Windows.Forms.Button();
+            this.tabPageSettings = new System.Windows.Forms.TabPage();
+            this.groupBoxWhenCreating = new System.Windows.Forms.GroupBox();
+            this.checkBoxAddReminders = new System.Windows.Forms.CheckBox();
+            this.checkBoxAddAttendees = new System.Windows.Forms.CheckBox();
+            this.checkBoxAddDescription = new System.Windows.Forms.CheckBox();
+            this.groupBoxOptions = new System.Windows.Forms.GroupBox();
+            this.checkBoxMinimizeToTray = new System.Windows.Forms.CheckBox();
+            this.checkBoxStartInTray = new System.Windows.Forms.CheckBox();
+            this.checkBoxCreateFiles = new System.Windows.Forms.CheckBox();
+            this.groupBoxSyncRegularly = new System.Windows.Forms.GroupBox();
+            this.checkBoxShowBubbleTooltips = new System.Windows.Forms.CheckBox();
+            this.checkBoxSyncEveryHour = new System.Windows.Forms.CheckBox();
+            this.textBoxMinuteOffsets = new System.Windows.Forms.TextBox();
+            this.groupBoxGoogleCalendar = new System.Windows.Forms.GroupBox();
+            this.labelUseGoogleCalendar = new System.Windows.Forms.Label();
+            this.buttonGetMyCalendars = new System.Windows.Forms.Button();
+            this.comboBoxCalendars = new System.Windows.Forms.ComboBox();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.groupBoxSyncDataRange = new System.Windows.Forms.GroupBox();
+            this.numericUpDownDaysInTheFuture = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownDaysInThePast = new System.Windows.Forms.NumericUpDown();
+            this.labelDaysInTheFuture = new System.Windows.Forms.Label();
+            this.labelDaysInThePast = new System.Windows.Forms.Label();
+            this.tabPageAbout = new System.Windows.Forms.TabPage();
+            this.linkLabelUrl = new System.Windows.Forms.LinkLabel();
             this.labelAbout = new System.Windows.Forms.Label();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbDaysInTheFuture)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbDaysInThePast)).BeginInit();
-            this.tabPage3.SuspendLayout();
+            this.tabPageSync.SuspendLayout();
+            this.tabPageSettings.SuspendLayout();
+            this.groupBoxWhenCreating.SuspendLayout();
+            this.groupBoxOptions.SuspendLayout();
+            this.groupBoxSyncRegularly.SuspendLayout();
+            this.groupBoxGoogleCalendar.SuspendLayout();
+            this.groupBoxSyncDataRange.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDaysInTheFuture)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDaysInThePast)).BeginInit();
+            this.tabPageAbout.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(18, 18);
+            this.tabControl1.Controls.Add(this.tabPageSync);
+            this.tabControl1.Controls.Add(this.tabPageSettings);
+            this.tabControl1.Controls.Add(this.tabPageAbout);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(742, 777);
+            this.tabControl1.Size = new System.Drawing.Size(778, 814);
             this.tabControl1.TabIndex = 0;
             // 
-            // tabPage1
+            // tabPageSync
             // 
-            this.tabPage1.Controls.Add(this.buttonDeleteAll);
-            this.tabPage1.Controls.Add(this.LogBox);
-            this.tabPage1.Controls.Add(this.bSyncNow);
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage1.Size = new System.Drawing.Size(734, 744);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Sync";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPageSync.Controls.Add(this.buttonDeleteAll);
+            this.tabPageSync.Controls.Add(this.textBoxLogs);
+            this.tabPageSync.Controls.Add(this.buttonSyncNow);
+            this.tabPageSync.Location = new System.Drawing.Point(4, 29);
+            this.tabPageSync.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabPageSync.Name = "tabPageSync";
+            this.tabPageSync.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabPageSync.Size = new System.Drawing.Size(770, 781);
+            this.tabPageSync.TabIndex = 0;
+            this.tabPageSync.Text = "Sync";
+            this.tabPageSync.UseVisualStyleBackColor = true;
             // 
             // buttonDeleteAll
             // 
-            this.buttonDeleteAll.Location = new System.Drawing.Point(487, 680);
+            this.buttonDeleteAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDeleteAll.Location = new System.Drawing.Point(525, 728);
             this.buttonDeleteAll.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonDeleteAll.Name = "buttonDeleteAll";
             this.buttonDeleteAll.Size = new System.Drawing.Size(237, 48);
@@ -122,322 +124,342 @@ namespace OutlookGoogleSync
             this.buttonDeleteAll.UseVisualStyleBackColor = true;
             this.buttonDeleteAll.Click += new System.EventHandler(this.buttonDeleteAll_Click);
             // 
-            // LogBox
+            // textBoxLogs
             // 
-            this.LogBox.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LogBox.Location = new System.Drawing.Point(10, 9);
-            this.LogBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.LogBox.Multiline = true;
-            this.LogBox.Name = "LogBox";
-            this.LogBox.Size = new System.Drawing.Size(714, 659);
-            this.LogBox.TabIndex = 3;
+            this.textBoxLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxLogs.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxLogs.Location = new System.Drawing.Point(10, 9);
+            this.textBoxLogs.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxLogs.Multiline = true;
+            this.textBoxLogs.Name = "textBoxLogs";
+            this.textBoxLogs.Size = new System.Drawing.Size(752, 709);
+            this.textBoxLogs.TabIndex = 3;
             // 
-            // bSyncNow
+            // buttonSyncNow
             // 
-            this.bSyncNow.Location = new System.Drawing.Point(6, 680);
-            this.bSyncNow.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.bSyncNow.Name = "bSyncNow";
-            this.bSyncNow.Size = new System.Drawing.Size(147, 48);
-            this.bSyncNow.TabIndex = 0;
-            this.bSyncNow.Text = "Sync now";
-            this.bSyncNow.UseVisualStyleBackColor = true;
-            this.bSyncNow.Click += new System.EventHandler(this.SyncNow_Click);
+            this.buttonSyncNow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSyncNow.Location = new System.Drawing.Point(8, 728);
+            this.buttonSyncNow.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.buttonSyncNow.Name = "buttonSyncNow";
+            this.buttonSyncNow.Size = new System.Drawing.Size(147, 48);
+            this.buttonSyncNow.TabIndex = 0;
+            this.buttonSyncNow.Text = "Sync now";
+            this.buttonSyncNow.UseVisualStyleBackColor = true;
+            this.buttonSyncNow.Click += new System.EventHandler(this.buttonSyncNow_Click);
             // 
-            // tabPage2
+            // tabPageSettings
             // 
-            this.tabPage2.Controls.Add(this.groupBox5);
-            this.tabPage2.Controls.Add(this.groupBox4);
-            this.tabPage2.Controls.Add(this.groupBox3);
-            this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Controls.Add(this.bSave);
-            this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 29);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage2.Size = new System.Drawing.Size(734, 744);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Settings";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPageSettings.Controls.Add(this.groupBoxWhenCreating);
+            this.tabPageSettings.Controls.Add(this.groupBoxOptions);
+            this.tabPageSettings.Controls.Add(this.groupBoxSyncRegularly);
+            this.tabPageSettings.Controls.Add(this.groupBoxGoogleCalendar);
+            this.tabPageSettings.Controls.Add(this.buttonSave);
+            this.tabPageSettings.Controls.Add(this.groupBoxSyncDataRange);
+            this.tabPageSettings.Location = new System.Drawing.Point(4, 29);
+            this.tabPageSettings.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabPageSettings.Name = "tabPageSettings";
+            this.tabPageSettings.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabPageSettings.Size = new System.Drawing.Size(770, 781);
+            this.tabPageSettings.TabIndex = 1;
+            this.tabPageSettings.Text = "Settings";
+            this.tabPageSettings.UseVisualStyleBackColor = true;
             // 
-            // groupBox5
+            // groupBoxWhenCreating
             // 
-            this.groupBox5.Controls.Add(this.cbAddReminders);
-            this.groupBox5.Controls.Add(this.cbAddAttendees);
-            this.groupBox5.Controls.Add(this.cbAddDescription);
-            this.groupBox5.Location = new System.Drawing.Point(9, 263);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox5.Size = new System.Drawing.Size(712, 172);
-            this.groupBox5.TabIndex = 15;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "When creating Google Calendar Entries...   ";
+            this.groupBoxWhenCreating.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxWhenCreating.Controls.Add(this.checkBoxAddReminders);
+            this.groupBoxWhenCreating.Controls.Add(this.checkBoxAddAttendees);
+            this.groupBoxWhenCreating.Controls.Add(this.checkBoxAddDescription);
+            this.groupBoxWhenCreating.Location = new System.Drawing.Point(9, 263);
+            this.groupBoxWhenCreating.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBoxWhenCreating.Name = "groupBoxWhenCreating";
+            this.groupBoxWhenCreating.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBoxWhenCreating.Size = new System.Drawing.Size(748, 172);
+            this.groupBoxWhenCreating.TabIndex = 15;
+            this.groupBoxWhenCreating.TabStop = false;
+            this.groupBoxWhenCreating.Text = "When creating Google Calendar Entries...   ";
             // 
-            // cbAddReminders
+            // checkBoxAddReminders
             // 
-            this.cbAddReminders.Location = new System.Drawing.Point(18, 122);
-            this.cbAddReminders.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbAddReminders.Name = "cbAddReminders";
-            this.cbAddReminders.Size = new System.Drawing.Size(208, 37);
-            this.cbAddReminders.TabIndex = 8;
-            this.cbAddReminders.Text = "Add Reminders";
-            this.cbAddReminders.UseVisualStyleBackColor = true;
-            this.cbAddReminders.CheckedChanged += new System.EventHandler(this.CbAddRemindersCheckedChanged);
+            this.checkBoxAddReminders.Location = new System.Drawing.Point(18, 122);
+            this.checkBoxAddReminders.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkBoxAddReminders.Name = "checkBoxAddReminders";
+            this.checkBoxAddReminders.Size = new System.Drawing.Size(208, 37);
+            this.checkBoxAddReminders.TabIndex = 8;
+            this.checkBoxAddReminders.Text = "Add Reminders";
+            this.checkBoxAddReminders.UseVisualStyleBackColor = true;
+            this.checkBoxAddReminders.CheckedChanged += new System.EventHandler(this.checkBoxAddReminders_CheckedChanged);
             // 
-            // cbAddAttendees
+            // checkBoxAddAttendees
             // 
-            this.cbAddAttendees.Location = new System.Drawing.Point(18, 75);
-            this.cbAddAttendees.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbAddAttendees.Name = "cbAddAttendees";
-            this.cbAddAttendees.Size = new System.Drawing.Size(352, 37);
-            this.cbAddAttendees.TabIndex = 6;
-            this.cbAddAttendees.Text = "Add Attendees at the end of the Description";
-            this.cbAddAttendees.UseVisualStyleBackColor = true;
-            this.cbAddAttendees.CheckedChanged += new System.EventHandler(this.cbAddAttendees_CheckedChanged);
+            this.checkBoxAddAttendees.Location = new System.Drawing.Point(18, 75);
+            this.checkBoxAddAttendees.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkBoxAddAttendees.Name = "checkBoxAddAttendees";
+            this.checkBoxAddAttendees.Size = new System.Drawing.Size(352, 37);
+            this.checkBoxAddAttendees.TabIndex = 6;
+            this.checkBoxAddAttendees.Text = "Add Attendees at the end of the Description";
+            this.checkBoxAddAttendees.UseVisualStyleBackColor = true;
+            this.checkBoxAddAttendees.CheckedChanged += new System.EventHandler(this.cbAddAttendees_CheckedChanged);
             // 
-            // cbAddDescription
+            // checkBoxAddDescription
             // 
-            this.cbAddDescription.Location = new System.Drawing.Point(18, 29);
-            this.cbAddDescription.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbAddDescription.Name = "cbAddDescription";
-            this.cbAddDescription.Size = new System.Drawing.Size(314, 37);
-            this.cbAddDescription.TabIndex = 1;
-            this.cbAddDescription.Text = "Add Description";
-            this.cbAddDescription.UseVisualStyleBackColor = true;
-            this.cbAddDescription.CheckedChanged += new System.EventHandler(this.CbAddDescriptionCheckedChanged);
+            this.checkBoxAddDescription.Location = new System.Drawing.Point(18, 29);
+            this.checkBoxAddDescription.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkBoxAddDescription.Name = "checkBoxAddDescription";
+            this.checkBoxAddDescription.Size = new System.Drawing.Size(314, 37);
+            this.checkBoxAddDescription.TabIndex = 1;
+            this.checkBoxAddDescription.Text = "Add Description";
+            this.checkBoxAddDescription.UseVisualStyleBackColor = true;
+            this.checkBoxAddDescription.CheckedChanged += new System.EventHandler(this.checkBoxAddDescription_CheckedChanged);
             // 
-            // groupBox4
+            // groupBoxOptions
             // 
-            this.groupBox4.Controls.Add(this.cbMinimizeToTray);
-            this.groupBox4.Controls.Add(this.cbStartInTray);
-            this.groupBox4.Controls.Add(this.cbCreateFiles);
-            this.groupBox4.Location = new System.Drawing.Point(9, 445);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox4.Size = new System.Drawing.Size(712, 177);
-            this.groupBox4.TabIndex = 20;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Options";
+            this.groupBoxOptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxOptions.Controls.Add(this.checkBoxMinimizeToTray);
+            this.groupBoxOptions.Controls.Add(this.checkBoxStartInTray);
+            this.groupBoxOptions.Controls.Add(this.checkBoxCreateFiles);
+            this.groupBoxOptions.Location = new System.Drawing.Point(9, 445);
+            this.groupBoxOptions.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBoxOptions.Name = "groupBoxOptions";
+            this.groupBoxOptions.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBoxOptions.Size = new System.Drawing.Size(748, 177);
+            this.groupBoxOptions.TabIndex = 20;
+            this.groupBoxOptions.TabStop = false;
+            this.groupBoxOptions.Text = "Options";
             // 
-            // cbMinimizeToTray
+            // checkBoxMinimizeToTray
             // 
-            this.cbMinimizeToTray.Location = new System.Drawing.Point(18, 75);
-            this.cbMinimizeToTray.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbMinimizeToTray.Name = "cbMinimizeToTray";
-            this.cbMinimizeToTray.Size = new System.Drawing.Size(156, 37);
-            this.cbMinimizeToTray.TabIndex = 5;
-            this.cbMinimizeToTray.Text = "Minimize to Tray";
-            this.cbMinimizeToTray.UseVisualStyleBackColor = true;
-            this.cbMinimizeToTray.CheckedChanged += new System.EventHandler(this.CbMinimizeToTrayCheckedChanged);
+            this.checkBoxMinimizeToTray.Location = new System.Drawing.Point(18, 75);
+            this.checkBoxMinimizeToTray.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkBoxMinimizeToTray.Name = "checkBoxMinimizeToTray";
+            this.checkBoxMinimizeToTray.Size = new System.Drawing.Size(156, 37);
+            this.checkBoxMinimizeToTray.TabIndex = 5;
+            this.checkBoxMinimizeToTray.Text = "Minimize to Tray";
+            this.checkBoxMinimizeToTray.UseVisualStyleBackColor = true;
+            this.checkBoxMinimizeToTray.CheckedChanged += new System.EventHandler(this.checkBoxMinimizeToTray_CheckedChanged);
             // 
-            // cbStartInTray
+            // checkBoxStartInTray
             // 
-            this.cbStartInTray.Location = new System.Drawing.Point(18, 29);
-            this.cbStartInTray.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbStartInTray.Name = "cbStartInTray";
-            this.cbStartInTray.Size = new System.Drawing.Size(156, 37);
-            this.cbStartInTray.TabIndex = 1;
-            this.cbStartInTray.Text = "Start in Tray";
-            this.cbStartInTray.UseVisualStyleBackColor = true;
-            this.cbStartInTray.CheckedChanged += new System.EventHandler(this.CbStartInTrayCheckedChanged);
+            this.checkBoxStartInTray.Location = new System.Drawing.Point(18, 29);
+            this.checkBoxStartInTray.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkBoxStartInTray.Name = "checkBoxStartInTray";
+            this.checkBoxStartInTray.Size = new System.Drawing.Size(156, 37);
+            this.checkBoxStartInTray.TabIndex = 1;
+            this.checkBoxStartInTray.Text = "Start in Tray";
+            this.checkBoxStartInTray.UseVisualStyleBackColor = true;
+            this.checkBoxStartInTray.CheckedChanged += new System.EventHandler(this.checkBoxStartInTray_CheckedChanged);
             // 
-            // cbCreateFiles
+            // checkBoxCreateFiles
             // 
-            this.cbCreateFiles.Location = new System.Drawing.Point(18, 122);
-            this.cbCreateFiles.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbCreateFiles.Name = "cbCreateFiles";
-            this.cbCreateFiles.Size = new System.Drawing.Size(352, 37);
-            this.cbCreateFiles.TabIndex = 7;
-            this.cbCreateFiles.Text = "Create text files with found/identified entries";
-            this.cbCreateFiles.UseVisualStyleBackColor = true;
-            this.cbCreateFiles.CheckedChanged += new System.EventHandler(this.cbCreateFiles_CheckedChanged);
+            this.checkBoxCreateFiles.Location = new System.Drawing.Point(18, 122);
+            this.checkBoxCreateFiles.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkBoxCreateFiles.Name = "checkBoxCreateFiles";
+            this.checkBoxCreateFiles.Size = new System.Drawing.Size(352, 37);
+            this.checkBoxCreateFiles.TabIndex = 7;
+            this.checkBoxCreateFiles.Text = "Create text files with found/identified entries";
+            this.checkBoxCreateFiles.UseVisualStyleBackColor = true;
+            this.checkBoxCreateFiles.CheckedChanged += new System.EventHandler(this.cbCreateFiles_CheckedChanged);
             // 
-            // groupBox3
+            // groupBoxSyncRegularly
             // 
-            this.groupBox3.Controls.Add(this.cbShowBubbleTooltips);
-            this.groupBox3.Controls.Add(this.cbSyncEveryHour);
-            this.groupBox3.Controls.Add(this.tbMinuteOffsets);
-            this.groupBox3.Location = new System.Drawing.Point(266, 123);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox3.Size = new System.Drawing.Size(456, 131);
-            this.groupBox3.TabIndex = 10;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Sync Regularly";
+            this.groupBoxSyncRegularly.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxSyncRegularly.Controls.Add(this.checkBoxShowBubbleTooltips);
+            this.groupBoxSyncRegularly.Controls.Add(this.checkBoxSyncEveryHour);
+            this.groupBoxSyncRegularly.Controls.Add(this.textBoxMinuteOffsets);
+            this.groupBoxSyncRegularly.Location = new System.Drawing.Point(266, 123);
+            this.groupBoxSyncRegularly.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBoxSyncRegularly.Name = "groupBoxSyncRegularly";
+            this.groupBoxSyncRegularly.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBoxSyncRegularly.Size = new System.Drawing.Size(492, 131);
+            this.groupBoxSyncRegularly.TabIndex = 10;
+            this.groupBoxSyncRegularly.TabStop = false;
+            this.groupBoxSyncRegularly.Text = "Sync Regularly";
             // 
-            // cbShowBubbleTooltips
+            // checkBoxShowBubbleTooltips
             // 
-            this.cbShowBubbleTooltips.Location = new System.Drawing.Point(9, 75);
-            this.cbShowBubbleTooltips.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbShowBubbleTooltips.Name = "cbShowBubbleTooltips";
-            this.cbShowBubbleTooltips.Size = new System.Drawing.Size(388, 37);
-            this.cbShowBubbleTooltips.TabIndex = 13;
-            this.cbShowBubbleTooltips.Text = "Show Bubble Tooltip in Taskbar when Syncing";
-            this.cbShowBubbleTooltips.UseVisualStyleBackColor = true;
-            this.cbShowBubbleTooltips.CheckedChanged += new System.EventHandler(this.CbShowBubbleTooltipsCheckedChanged);
+            this.checkBoxShowBubbleTooltips.Location = new System.Drawing.Point(9, 75);
+            this.checkBoxShowBubbleTooltips.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkBoxShowBubbleTooltips.Name = "checkBoxShowBubbleTooltips";
+            this.checkBoxShowBubbleTooltips.Size = new System.Drawing.Size(388, 37);
+            this.checkBoxShowBubbleTooltips.TabIndex = 13;
+            this.checkBoxShowBubbleTooltips.Text = "Show Bubble Tooltip in Taskbar when Syncing";
+            this.checkBoxShowBubbleTooltips.UseVisualStyleBackColor = true;
+            this.checkBoxShowBubbleTooltips.CheckedChanged += new System.EventHandler(this.checkBoxShowBubbleTooltips_CheckedChanged);
             // 
-            // cbSyncEveryHour
+            // checkBoxSyncEveryHour
             // 
-            this.cbSyncEveryHour.Location = new System.Drawing.Point(9, 29);
-            this.cbSyncEveryHour.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbSyncEveryHour.Name = "cbSyncEveryHour";
-            this.cbSyncEveryHour.Size = new System.Drawing.Size(332, 37);
-            this.cbSyncEveryHour.TabIndex = 6;
-            this.cbSyncEveryHour.Text = "Sync every hour at these Minute Offset(s)";
-            this.cbSyncEveryHour.UseVisualStyleBackColor = true;
-            this.cbSyncEveryHour.CheckedChanged += new System.EventHandler(this.CbSyncEveryHourCheckedChanged);
+            this.checkBoxSyncEveryHour.Location = new System.Drawing.Point(9, 29);
+            this.checkBoxSyncEveryHour.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkBoxSyncEveryHour.Name = "checkBoxSyncEveryHour";
+            this.checkBoxSyncEveryHour.Size = new System.Drawing.Size(332, 37);
+            this.checkBoxSyncEveryHour.TabIndex = 6;
+            this.checkBoxSyncEveryHour.Text = "Sync every hour at these Minute Offset(s)";
+            this.checkBoxSyncEveryHour.UseVisualStyleBackColor = true;
+            this.checkBoxSyncEveryHour.CheckedChanged += new System.EventHandler(this.checkBoxSyncEveryHour_CheckedChanged);
             // 
-            // tbMinuteOffsets
+            // textBoxMinuteOffsets
             // 
-            this.tbMinuteOffsets.Location = new System.Drawing.Point(346, 32);
-            this.tbMinuteOffsets.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tbMinuteOffsets.Name = "tbMinuteOffsets";
-            this.tbMinuteOffsets.Size = new System.Drawing.Size(98, 26);
-            this.tbMinuteOffsets.TabIndex = 9;
-            this.tbMinuteOffsets.TextChanged += new System.EventHandler(this.TbMinuteOffsetsTextChanged);
+            this.textBoxMinuteOffsets.Location = new System.Drawing.Point(346, 32);
+            this.textBoxMinuteOffsets.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxMinuteOffsets.Name = "textBoxMinuteOffsets";
+            this.textBoxMinuteOffsets.Size = new System.Drawing.Size(98, 26);
+            this.textBoxMinuteOffsets.TabIndex = 9;
+            this.textBoxMinuteOffsets.TextChanged += new System.EventHandler(this.textBoxMinuteOffsets_TextChanged);
             // 
-            // groupBox2
+            // groupBoxGoogleCalendar
             // 
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.bGetMyCalendars);
-            this.groupBox2.Controls.Add(this.cbCalendars);
-            this.groupBox2.Location = new System.Drawing.Point(9, 9);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox2.Size = new System.Drawing.Size(712, 105);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Google Calendar";
+            this.groupBoxGoogleCalendar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxGoogleCalendar.Controls.Add(this.labelUseGoogleCalendar);
+            this.groupBoxGoogleCalendar.Controls.Add(this.buttonGetMyCalendars);
+            this.groupBoxGoogleCalendar.Controls.Add(this.comboBoxCalendars);
+            this.groupBoxGoogleCalendar.Location = new System.Drawing.Point(9, 9);
+            this.groupBoxGoogleCalendar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBoxGoogleCalendar.Name = "groupBoxGoogleCalendar";
+            this.groupBoxGoogleCalendar.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBoxGoogleCalendar.Size = new System.Drawing.Size(748, 105);
+            this.groupBoxGoogleCalendar.TabIndex = 0;
+            this.groupBoxGoogleCalendar.TabStop = false;
+            this.groupBoxGoogleCalendar.Text = "Google Calendar";
             // 
-            // label3
+            // labelUseGoogleCalendar
             // 
-            this.label3.Location = new System.Drawing.Point(9, 51);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(168, 35);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Use Google Calendar:";
+            this.labelUseGoogleCalendar.Location = new System.Drawing.Point(9, 51);
+            this.labelUseGoogleCalendar.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelUseGoogleCalendar.Name = "labelUseGoogleCalendar";
+            this.labelUseGoogleCalendar.Size = new System.Drawing.Size(168, 35);
+            this.labelUseGoogleCalendar.TabIndex = 3;
+            this.labelUseGoogleCalendar.Text = "Use Google Calendar:";
             // 
-            // bGetMyCalendars
+            // buttonGetMyCalendars
             // 
-            this.bGetMyCalendars.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bGetMyCalendars.Location = new System.Drawing.Point(532, 29);
-            this.bGetMyCalendars.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.bGetMyCalendars.Name = "bGetMyCalendars";
-            this.bGetMyCalendars.Size = new System.Drawing.Size(171, 62);
-            this.bGetMyCalendars.TabIndex = 5;
-            this.bGetMyCalendars.Text = "Get My\r\nGoogle Calendars";
-            this.bGetMyCalendars.UseVisualStyleBackColor = true;
-            this.bGetMyCalendars.Click += new System.EventHandler(this.GetMyGoogleCalendars_Click);
+            this.buttonGetMyCalendars.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonGetMyCalendars.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonGetMyCalendars.Location = new System.Drawing.Point(568, 29);
+            this.buttonGetMyCalendars.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.buttonGetMyCalendars.Name = "buttonGetMyCalendars";
+            this.buttonGetMyCalendars.Size = new System.Drawing.Size(171, 62);
+            this.buttonGetMyCalendars.TabIndex = 5;
+            this.buttonGetMyCalendars.Text = "Get My\r\nGoogle Calendars";
+            this.buttonGetMyCalendars.UseVisualStyleBackColor = true;
+            this.buttonGetMyCalendars.Click += new System.EventHandler(this.buttonGetMyGoogleCalendars_Click);
             // 
-            // cbCalendars
+            // comboBoxCalendars
             // 
-            this.cbCalendars.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbCalendars.FormattingEnabled = true;
-            this.cbCalendars.Location = new System.Drawing.Point(185, 47);
-            this.cbCalendars.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbCalendars.Name = "cbCalendars";
-            this.cbCalendars.Size = new System.Drawing.Size(336, 28);
-            this.cbCalendars.TabIndex = 1;
-            this.cbCalendars.SelectedIndexChanged += new System.EventHandler(this.ComboBox1SelectedIndexChanged);
+            this.comboBoxCalendars.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxCalendars.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCalendars.FormattingEnabled = true;
+            this.comboBoxCalendars.Location = new System.Drawing.Point(185, 47);
+            this.comboBoxCalendars.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.comboBoxCalendars.Name = "comboBoxCalendars";
+            this.comboBoxCalendars.Size = new System.Drawing.Size(372, 28);
+            this.comboBoxCalendars.TabIndex = 1;
+            this.comboBoxCalendars.SelectedIndexChanged += new System.EventHandler(this.comboBoxCalendars_SelectedIndexChanged);
             // 
-            // bSave
+            // buttonSave
             // 
-            this.bSave.Location = new System.Drawing.Point(9, 680);
-            this.bSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.bSave.Name = "bSave";
-            this.bSave.Size = new System.Drawing.Size(112, 48);
-            this.bSave.TabIndex = 30;
-            this.bSave.Text = "Save";
-            this.bSave.UseVisualStyleBackColor = true;
-            this.bSave.Click += new System.EventHandler(this.Save_Click);
+            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSave.Location = new System.Drawing.Point(9, 717);
+            this.buttonSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(112, 48);
+            this.buttonSave.TabIndex = 30;
+            this.buttonSave.Text = "Save";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
-            // groupBox1
+            // groupBoxSyncDataRange
             // 
-            this.groupBox1.Controls.Add(this.tbDaysInTheFuture);
-            this.groupBox1.Controls.Add(this.tbDaysInThePast);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(9, 123);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox1.Size = new System.Drawing.Size(248, 131);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Sync Date Range";
+            this.groupBoxSyncDataRange.Controls.Add(this.numericUpDownDaysInTheFuture);
+            this.groupBoxSyncDataRange.Controls.Add(this.numericUpDownDaysInThePast);
+            this.groupBoxSyncDataRange.Controls.Add(this.labelDaysInTheFuture);
+            this.groupBoxSyncDataRange.Controls.Add(this.labelDaysInThePast);
+            this.groupBoxSyncDataRange.Location = new System.Drawing.Point(9, 123);
+            this.groupBoxSyncDataRange.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBoxSyncDataRange.Name = "groupBoxSyncDataRange";
+            this.groupBoxSyncDataRange.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBoxSyncDataRange.Size = new System.Drawing.Size(248, 131);
+            this.groupBoxSyncDataRange.TabIndex = 5;
+            this.groupBoxSyncDataRange.TabStop = false;
+            this.groupBoxSyncDataRange.Text = "Sync Date Range";
             // 
-            // tbDaysInTheFuture
+            // numericUpDownDaysInTheFuture
             // 
-            this.tbDaysInTheFuture.Location = new System.Drawing.Point(158, 77);
-            this.tbDaysInTheFuture.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tbDaysInTheFuture.Name = "tbDaysInTheFuture";
-            this.tbDaysInTheFuture.Size = new System.Drawing.Size(69, 26);
-            this.tbDaysInTheFuture.TabIndex = 4;
-            this.tbDaysInTheFuture.ValueChanged += new System.EventHandler(this.TbDaysInTheFutureTextChanged);
+            this.numericUpDownDaysInTheFuture.Location = new System.Drawing.Point(158, 77);
+            this.numericUpDownDaysInTheFuture.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownDaysInTheFuture.Name = "numericUpDownDaysInTheFuture";
+            this.numericUpDownDaysInTheFuture.Size = new System.Drawing.Size(69, 26);
+            this.numericUpDownDaysInTheFuture.TabIndex = 4;
+            this.numericUpDownDaysInTheFuture.ValueChanged += new System.EventHandler(this.numericUpDownDaysInTheFuture_ValueChanged);
             // 
-            // tbDaysInThePast
+            // numericUpDownDaysInThePast
             // 
-            this.tbDaysInThePast.Location = new System.Drawing.Point(158, 32);
-            this.tbDaysInThePast.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tbDaysInThePast.Name = "tbDaysInThePast";
-            this.tbDaysInThePast.Size = new System.Drawing.Size(69, 26);
-            this.tbDaysInThePast.TabIndex = 3;
-            this.tbDaysInThePast.ValueChanged += new System.EventHandler(this.TbDaysInThePastTextChanged);
+            this.numericUpDownDaysInThePast.Location = new System.Drawing.Point(158, 32);
+            this.numericUpDownDaysInThePast.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownDaysInThePast.Name = "numericUpDownDaysInThePast";
+            this.numericUpDownDaysInThePast.Size = new System.Drawing.Size(69, 26);
+            this.numericUpDownDaysInThePast.TabIndex = 3;
+            this.numericUpDownDaysInThePast.ValueChanged += new System.EventHandler(this.numericUpDownDaysInThePast_ValueChanged);
             // 
-            // label2
+            // labelDaysInTheFuture
             // 
-            this.label2.Location = new System.Drawing.Point(9, 83);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(150, 35);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Days in the Future";
+            this.labelDaysInTheFuture.Location = new System.Drawing.Point(9, 83);
+            this.labelDaysInTheFuture.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelDaysInTheFuture.Name = "labelDaysInTheFuture";
+            this.labelDaysInTheFuture.Size = new System.Drawing.Size(150, 35);
+            this.labelDaysInTheFuture.TabIndex = 0;
+            this.labelDaysInTheFuture.Text = "Days in the Future";
             // 
-            // label1
+            // labelDaysInThePast
             // 
-            this.label1.Location = new System.Drawing.Point(9, 37);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(150, 35);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Days in the Past";
+            this.labelDaysInThePast.Location = new System.Drawing.Point(9, 37);
+            this.labelDaysInThePast.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelDaysInThePast.Name = "labelDaysInThePast";
+            this.labelDaysInThePast.Size = new System.Drawing.Size(150, 35);
+            this.labelDaysInThePast.TabIndex = 0;
+            this.labelDaysInThePast.Text = "Days in the Past";
             // 
-            // tabPage3
+            // tabPageAbout
             // 
-            this.tabPage3.Controls.Add(this.linkLabel1);
-            this.tabPage3.Controls.Add(this.labelAbout);
-            this.tabPage3.Location = new System.Drawing.Point(4, 29);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage3.Size = new System.Drawing.Size(734, 744);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "About";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPageAbout.Controls.Add(this.linkLabelUrl);
+            this.tabPageAbout.Controls.Add(this.labelAbout);
+            this.tabPageAbout.Location = new System.Drawing.Point(4, 29);
+            this.tabPageAbout.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabPageAbout.Name = "tabPageAbout";
+            this.tabPageAbout.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabPageAbout.Size = new System.Drawing.Size(770, 781);
+            this.tabPageAbout.TabIndex = 2;
+            this.tabPageAbout.Text = "About";
+            this.tabPageAbout.UseVisualStyleBackColor = true;
             // 
-            // linkLabel1
+            // linkLabelUrl
             // 
-            this.linkLabel1.Location = new System.Drawing.Point(8, 241);
-            this.linkLabel1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(712, 35);
-            this.linkLabel1.TabIndex = 2;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "https://github.com/David-Engel/OutlookGoogleCalendarSync";
-            this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel1LinkClicked);
+            this.linkLabelUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabelUrl.Location = new System.Drawing.Point(8, 241);
+            this.linkLabelUrl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.linkLabelUrl.Name = "linkLabelUrl";
+            this.linkLabelUrl.Size = new System.Drawing.Size(758, 35);
+            this.linkLabelUrl.TabIndex = 2;
+            this.linkLabelUrl.TabStop = true;
+            this.linkLabelUrl.Text = "https://github.com/David-Engel/OutlookGoogleCalendarSync";
+            this.linkLabelUrl.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.linkLabelUrl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelUrl_LinkClicked);
             // 
-            // label4
+            // labelAbout
             // 
+            this.labelAbout.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelAbout.Location = new System.Drawing.Point(4, 49);
             this.labelAbout.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelAbout.Name = "label4";
-            this.labelAbout.Size = new System.Drawing.Size(722, 182);
+            this.labelAbout.Name = "labelAbout";
+            this.labelAbout.Size = new System.Drawing.Size(762, 182);
             this.labelAbout.TabIndex = 1;
             this.labelAbout.Text = "David\'s Outlook to Google Calendar Sync\r\n\r\nVersion {version}\r\n\r\nby David Engel\r\n\r" +
     "\nOriginal Credit:\r\nOutlookGoogleSync by Zissis Siantidis\r\n";
@@ -447,7 +469,7 @@ namespace OutlookGoogleSync
             // 
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "OutlookGoogleSync";
-            this.notifyIcon1.Click += new System.EventHandler(this.NotifyIcon1Click);
+            this.notifyIcon1.Click += new System.EventHandler(this.notifyIcon1_Click);
             // 
             // MainForm
             // 
@@ -455,59 +477,59 @@ namespace OutlookGoogleSync
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(778, 814);
             this.Controls.Add(this.tabControl1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainForm";
+            this.ShowInTaskbar = false;
             this.Text = "David\'s Outlook to Google Calendar Sync";
-            this.Resize += new System.EventHandler(this.MainFormResize);
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.tbDaysInTheFuture)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbDaysInThePast)).EndInit();
-            this.tabPage3.ResumeLayout(false);
+            this.tabPageSync.ResumeLayout(false);
+            this.tabPageSync.PerformLayout();
+            this.tabPageSettings.ResumeLayout(false);
+            this.groupBoxWhenCreating.ResumeLayout(false);
+            this.groupBoxOptions.ResumeLayout(false);
+            this.groupBoxSyncRegularly.ResumeLayout(false);
+            this.groupBoxSyncRegularly.PerformLayout();
+            this.groupBoxGoogleCalendar.ResumeLayout(false);
+            this.groupBoxSyncDataRange.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDaysInTheFuture)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDaysInThePast)).EndInit();
+            this.tabPageAbout.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
-        private System.Windows.Forms.CheckBox cbAddReminders;
-        private System.Windows.Forms.CheckBox cbAddDescription;
-        private System.Windows.Forms.CheckBox cbShowBubbleTooltips;
-        private System.Windows.Forms.CheckBox cbSyncEveryHour;
-        private System.Windows.Forms.CheckBox cbMinimizeToTray;
-        private System.Windows.Forms.CheckBox cbStartInTray;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TextBox tbMinuteOffsets;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.CheckBox checkBoxAddReminders;
+        private System.Windows.Forms.CheckBox checkBoxAddDescription;
+        private System.Windows.Forms.CheckBox checkBoxShowBubbleTooltips;
+        private System.Windows.Forms.CheckBox checkBoxSyncEveryHour;
+        private System.Windows.Forms.CheckBox checkBoxMinimizeToTray;
+        private System.Windows.Forms.CheckBox checkBoxStartInTray;
+        private System.Windows.Forms.GroupBox groupBoxOptions;
+        private System.Windows.Forms.GroupBox groupBoxWhenCreating;
+        private System.Windows.Forms.LinkLabel linkLabelUrl;
+        private System.Windows.Forms.TabPage tabPageAbout;
+        private System.Windows.Forms.TextBox textBoxMinuteOffsets;
+        private System.Windows.Forms.GroupBox groupBoxSyncRegularly;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.Label labelAbout;
-        private System.Windows.Forms.CheckBox cbAddAttendees;
-        private System.Windows.Forms.CheckBox cbCreateFiles;
-        private System.Windows.Forms.TextBox LogBox;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label3;
-        public System.Windows.Forms.ComboBox cbCalendars;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button bSave;
-        private System.Windows.Forms.Button bGetMyCalendars;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Button bSyncNow;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.CheckBox checkBoxAddAttendees;
+        private System.Windows.Forms.CheckBox checkBoxCreateFiles;
+        private System.Windows.Forms.TextBox textBoxLogs;
+        private System.Windows.Forms.GroupBox groupBoxGoogleCalendar;
+        private System.Windows.Forms.Label labelUseGoogleCalendar;
+        public System.Windows.Forms.ComboBox comboBoxCalendars;
+        private System.Windows.Forms.Label labelDaysInThePast;
+        private System.Windows.Forms.Label labelDaysInTheFuture;
+        private System.Windows.Forms.GroupBox groupBoxSyncDataRange;
+        private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.Button buttonGetMyCalendars;
+        private System.Windows.Forms.TabPage tabPageSettings;
+        private System.Windows.Forms.Button buttonSyncNow;
+        private System.Windows.Forms.TabPage tabPageSync;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.NumericUpDown tbDaysInTheFuture;
-        private System.Windows.Forms.NumericUpDown tbDaysInThePast;
+        private System.Windows.Forms.NumericUpDown numericUpDownDaysInTheFuture;
+        private System.Windows.Forms.NumericUpDown numericUpDownDaysInThePast;
         private System.Windows.Forms.Button buttonDeleteAll;
 
 

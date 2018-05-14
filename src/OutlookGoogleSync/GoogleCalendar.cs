@@ -63,7 +63,7 @@ namespace OutlookGoogleSync
 
                     //save the refresh token for future use
                     Settings.Instance.RefreshToken = result.RefreshToken;
-                    XMLManager.export(Settings.Instance, MainForm.FILENAME);
+                    XMLManager.Export(Settings.Instance, MainForm.FILENAME);
 
                     return result;
                 }

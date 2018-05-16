@@ -97,15 +97,15 @@ namespace OutlookGoogleSync
             return null;
         }
 
-        public List<Event> getCalendarEntriesInRange()
+        public List<Event> getCalendarEntriesInRange(DateTime syncDateTime)
         {
             List<Event> result = new List<Event>();
             Events request = null;
 
             EventsResource.ListRequest lr = service.Events.List(Settings.Instance.SelectedGoogleCalendar.Id);
 
-            lr.TimeMin = GoogleTimeFrom(DateTime.Now.AddDays(-Settings.Instance.DaysInThePast));
-            lr.TimeMax = GoogleTimeFrom(DateTime.Now.AddDays(+Settings.Instance.DaysInTheFuture + 1));
+            lr.TimeMin = GoogleTimeFrom(syncDateTime.AddDays(-Settings.Instance.DaysInThePast));
+            lr.TimeMax = GoogleTimeFrom(syncDateTime.AddDays(+Settings.Instance.DaysInTheFuture + 1));
             lr.SingleEvents = true;
             lr.OrderBy = EventsResource.OrderBy.StartTime;
 

@@ -69,7 +69,7 @@ namespace OutlookGoogleSync
             return null;
         }
 
-        public List<AppointmentItem> getCalendarEntriesInRange()
+        public List<AppointmentItem> getCalendarEntriesInRange(DateTime syncDateTime)
         {
             List<AppointmentItem> result = new List<AppointmentItem>();
 
@@ -79,8 +79,8 @@ namespace OutlookGoogleSync
 
             if (OutlookItems != null)
             {
-                DateTime min = DateTime.Now.AddDays(-Settings.Instance.DaysInThePast);
-                DateTime max = DateTime.Now.AddDays(+Settings.Instance.DaysInTheFuture + 1);
+                DateTime min = syncDateTime.AddDays(-Settings.Instance.DaysInThePast);
+                DateTime max = syncDateTime.AddDays(+Settings.Instance.DaysInTheFuture + 1);
 
                 //trying this instead, also proposed by WolverineFan, thanks!!! 
                 string filter = "[End] >= '" + min.ToString("g") + "' AND [Start] < '" + max.ToString("g") + "'";

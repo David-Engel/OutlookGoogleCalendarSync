@@ -198,18 +198,18 @@ namespace OutlookGoogleSync
                 return;
             }
 
-            DateTime SyncStarted = DateTime.Now;
+            DateTime syncStarted = DateTime.Now;
             OutlookCalendar ocal = null;
 
             try
             {
-                logboxout("Sync started at " + SyncStarted.ToString());
+                logboxout("Sync started at " + syncStarted.ToString());
                 logboxout("--------------------------------------------------");
 
                 logboxout("Reading Outlook Calendar Entries...");
                 ocal = new OutlookCalendar();
                 List<AppointmentItemCacheEntry> OutlookEntries = new List<AppointmentItemCacheEntry>();
-                foreach (AppointmentItem a in ocal.getCalendarEntriesInRange())
+                foreach (AppointmentItem a in ocal.getCalendarEntriesInRange(syncStarted))
                 {
                     OutlookEntries.Add(_aiCache.GetAppointmentItemCacheEntry(a, ocal.AccountName));
                 }
@@ -237,7 +237,7 @@ namespace OutlookGoogleSync
 
                 GoogleCalendar gcal = new GoogleCalendar();
                 List<EventCacheEntry> GoogleEntries = new List<EventCacheEntry>();
-                foreach (Event ev in gcal.getCalendarEntriesInRange())
+                foreach (Event ev in gcal.getCalendarEntriesInRange(syncStarted))
                 {
                     GoogleEntries.Add(_eventCache.GetEventCacheEntry(ev, accountName));
                 }
@@ -373,10 +373,10 @@ namespace OutlookGoogleSync
                     logboxout("--------------------------------------------------");
                 }
 
-                DateTime SyncFinished = DateTime.Now;
-                TimeSpan Elapsed = SyncFinished - SyncStarted;
-                logboxout("Sync finished at " + SyncFinished.ToString());
-                logboxout("Time needed: " + Elapsed.Minutes + " min " + Elapsed.Seconds + " s");
+                DateTime syncFinished = DateTime.Now;
+                TimeSpan elapsed = syncFinished - syncStarted;
+                logboxout("Sync finished at " + syncFinished.ToString());
+                logboxout("Time needed: " + elapsed.Minutes + " min " + elapsed.Seconds + " s");
             }
             catch (System.Exception ex)
             {
@@ -625,19 +625,19 @@ namespace OutlookGoogleSync
 
         private void deleteAllSyncItems()
         {
-            DateTime SyncStarted = DateTime.Now;
+            DateTime syncStarted = DateTime.Now;
             OutlookCalendar ocal = null;
 
             try
             {
-                logboxout("Sync started at " + SyncStarted.ToString());
+                logboxout("Sync started at " + syncStarted.ToString());
                 logboxout("--------------------------------------------------");
 
                 ocal = new OutlookCalendar();
 
                 logboxout("Reading Google Calendar Entries...");
                 GoogleCalendar gcal = new GoogleCalendar();
-                List<Event> GoogleEntries = gcal.getCalendarEntriesInRange();
+                List<Event> GoogleEntries = gcal.getCalendarEntriesInRange(syncStarted);
                 List<Event> GoogleEntriesToDelete = new List<Event>();
                 foreach (Event ev in GoogleEntries)
                 {
@@ -661,10 +661,10 @@ namespace OutlookGoogleSync
                 logboxout("Done.");
                 logboxout("--------------------------------------------------");
 
-                DateTime SyncFinished = DateTime.Now;
-                TimeSpan Elapsed = SyncFinished - SyncStarted;
-                logboxout("Sync finished at " + SyncFinished.ToString());
-                logboxout("Time needed: " + Elapsed.Minutes + " min " + Elapsed.Seconds + " s");
+                DateTime syncFinished = DateTime.Now;
+                TimeSpan elapsed = syncFinished - syncStarted;
+                logboxout("Sync finished at " + syncFinished.ToString());
+                logboxout("Time needed: " + elapsed.Minutes + " min " + elapsed.Seconds + " s");
             }
             catch (System.Exception ex)
             {

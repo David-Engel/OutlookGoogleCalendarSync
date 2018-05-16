@@ -17,15 +17,15 @@ namespace OutlookGoogleSync
     public class GoogleCalendar
     {
 
-        private static GoogleCalendar instance;
+        private static GoogleCalendar _instance;
 
         public static GoogleCalendar Instance
         {
             get
             {
-                if (instance == null)
-                    instance = new GoogleCalendar();
-                return instance;
+                if (_instance == null)
+                    _instance = new GoogleCalendar();
+                return _instance;
             }
         }
 
@@ -143,9 +143,11 @@ namespace OutlookGoogleSync
         {
             string timezone = TimeZoneInfo.Local.GetUtcOffset(dt).ToString();
             if (timezone[0] != '-')
+            {
                 timezone = '+' + timezone;
-            timezone = timezone.Substring(0, 6);
+            }
 
+            timezone = timezone.Substring(0, 6);
             string result = dt.GetDateTimeFormats('s')[0] + timezone;
             return result;
         }

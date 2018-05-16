@@ -9,14 +9,14 @@ namespace OutlookGoogleSync
     /// </summary>
     public class OutlookCalendar
     {
-        private static OutlookCalendar instance;
+        private static OutlookCalendar _instance;
 
         public static OutlookCalendar Instance
         {
             get
             {
-                if (instance == null) instance = new OutlookCalendar();
-                return instance;
+                if (_instance == null) _instance = new OutlookCalendar();
+                return _instance;
             }
         }
 
@@ -28,10 +28,8 @@ namespace OutlookGoogleSync
             get { return _accountName; }
         }
 
-
         public OutlookCalendar()
         {
-
             // Create the Outlook application.
             Application oApp = new Application();
 
@@ -64,8 +62,10 @@ namespace OutlookGoogleSync
                 {
                     result.Add(ai);
                 }
+
                 return result;
             }
+
             return null;
         }
 

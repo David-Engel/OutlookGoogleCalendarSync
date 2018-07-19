@@ -480,8 +480,8 @@ namespace OutlookGoogleSync
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainForm";
-            this.ShowInTaskbar = false;
             this.Text = "David\'s Outlook to Google Calendar Sync";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.tabControl1.ResumeLayout(false);
             this.tabPageSync.ResumeLayout(false);

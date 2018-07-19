@@ -58,16 +58,6 @@ namespace OutlookGoogleSync
             checkBoxAddReminders.Checked = Settings.Instance.AddReminders;
             checkBoxCreateFiles.Checked = Settings.Instance.CreateTextFiles;
 
-            //Start in tray?
-            if (checkBoxStartInTray.Checked)
-            {
-                WindowState = FormWindowState.Minimized;
-            }
-            else
-            {
-                ShowInTaskbar = true;
-            }
-
             //set up timer (every 30s) for checking the minute offsets
             _ogstimer = new Timer();
             _ogstimer.Interval = 30000;
@@ -106,6 +96,15 @@ namespace OutlookGoogleSync
                 "Turning this off allows OutlookGoogleSync to run without intervention in this case.");
             toolTip1.SetToolTip(buttonDeleteAll,
                 "Delete all calendar items from your Google calendar which were synced from your Outlook calendar in the set time range.");
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            //Start in tray?
+            if (checkBoxStartInTray.Checked)
+            {
+                WindowState = FormWindowState.Minimized;
+            }
         }
 
         private void ogstimer_Tick(object sender, EventArgs e)

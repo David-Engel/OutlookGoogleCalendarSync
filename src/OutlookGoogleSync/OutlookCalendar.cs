@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Microsoft.Office.Interop.Outlook;
 
 namespace OutlookGoogleSync
@@ -46,23 +47,28 @@ namespace OutlookGoogleSync
 
             // Get the Calendar folder.
             UseOutlookCalendar = oNS.GetDefaultFolder(OlDefaultFolders.olFolderCalendar);
-            _accountName = oNS.DefaultStore.DisplayName;
+            Store defaultStore = oNS.DefaultStore;
+            _accountName = defaultStore.DisplayName;
 
             // Done. Log off.
             oNS.Logoff();
+            Marshal.ReleaseComObject(defaultStore);
+            Marshal.ReleaseComObject(oNS);
+            Marshal.ReleaseComObject(oApp);
         }
 
         public List<AppointmentItem> getCalendarEntries()
         {
-            Items OutlookItems = UseOutlookCalendar.Items;
-            if (OutlookItems != null)
+            Items outlookItems = UseOutlookCalendar.Items;
+            if (outlookItems != null)
             {
                 List<AppointmentItem> result = new List<AppointmentItem>();
-                foreach (AppointmentItem ai in OutlookItems)
+                foreach (AppointmentItem ai in outlookItems)
                 {
                     result.Add(ai);
                 }
 
+                Marshal.ReleaseComObject(outlookItems);
                 return result;
             }
 
@@ -73,11 +79,11 @@ namespace OutlookGoogleSync
         {
             List<AppointmentItem> result = new List<AppointmentItem>();
 
-            Items OutlookItems = UseOutlookCalendar.Items;
-            OutlookItems.Sort("[Start]", Type.Missing);
-            OutlookItems.IncludeRecurrences = true;
+            Items outlookItems = UseOutlookCalendar.Items;
+            outlookItems.Sort("[Start]", Type.Missing);
+            outlookItems.IncludeRecurrences = true;
 
-            if (OutlookItems != null)
+            if (outlookItems != null)
             {
                 DateTime min = syncDateTime.AddDays(-Settings.Instance.DaysInThePast);
                 DateTime max = syncDateTime.AddDays(+Settings.Instance.DaysInTheFuture + 1);
@@ -85,10 +91,12 @@ namespace OutlookGoogleSync
                 //trying this instead, also proposed by WolverineFan, thanks!!! 
                 string filter = "[End] >= '" + min.ToString("g") + "' AND [Start] < '" + max.ToString("g") + "'";
 
-                foreach (AppointmentItem ai in OutlookItems.Restrict(filter))
+                foreach (AppointmentItem ai in outlookItems.Restrict(filter))
                 {
                     result.Add(ai);
                 }
+
+                Marshal.ReleaseComObject(outlookItems);
             }
 
             return result;

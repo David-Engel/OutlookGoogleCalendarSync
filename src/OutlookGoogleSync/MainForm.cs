@@ -389,10 +389,10 @@ namespace OutlookGoogleSync
         {
             try
             {
-                _aiCache.Clear();
+                _aiCache.ClearAndReleaseAll();
                 if (oc != null && oc.UseOutlookCalendar != null)
                 {
-                    Marshal.ReleaseComObject(oc.UseOutlookCalendar);
+                    Marshal.FinalReleaseComObject(oc.UseOutlookCalendar);
                 }
 
                 GC.Collect();

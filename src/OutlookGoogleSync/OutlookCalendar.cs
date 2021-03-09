@@ -37,21 +37,11 @@ namespace OutlookGoogleSync
             // Get the NameSpace and Logon information.
             NameSpace oNS = oApp.GetNamespace("mapi");
 
-            //Log on by using a dialog box to choose the profile.
-            oNS.Logon("", "", true, true);
-
-            //Alternate logon method that uses a specific profile.
-            // If you use this logon method, 
-            // change the profile name to an appropriate value.
-            //oNS.Logon("YourValidProfile", Missing.Value, false, true); 
-
             // Get the Calendar folder.
             UseOutlookCalendar = oNS.GetDefaultFolder(OlDefaultFolders.olFolderCalendar);
             Store defaultStore = oNS.DefaultStore;
             _accountName = defaultStore.DisplayName;
 
-            // Done. Log off.
-            oNS.Logoff();
             Marshal.ReleaseComObject(defaultStore);
             Marshal.ReleaseComObject(oNS);
             Marshal.ReleaseComObject(oApp);

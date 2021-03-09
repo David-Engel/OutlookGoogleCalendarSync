@@ -20,13 +20,7 @@ namespace OutlookGoogleSync
         private DateTime _oldtime;
         private List<int> _minuteOffsets = new List<int>();
         private FormWindowState _previousWindowState = FormWindowState.Normal;
-
-        private AppointmentItemCache _aiCache = new AppointmentItemCache();
-        private EventCache _eventCache = new EventCache();
         private BackgroundWorker _syncWorker = new BackgroundWorker();
-
-        private Dictionary<Event, string> _googleEventSignatures = new Dictionary<Event, string>();
-        private Dictionary<AppointmentItem, string> _outlookAppointmentSignatures = new Dictionary<AppointmentItem, string>();
 
         public MainForm()
         {
@@ -171,9 +165,6 @@ namespace OutlookGoogleSync
                 return;
             }
 
-            _googleEventSignatures.Clear();
-            _outlookAppointmentSignatures.Clear();
-
             if (Settings.Instance.SelectedGoogleCalendar.Id == "")
             {
                 MessageBox.Show("You need to select a Google Calendar first on the 'Settings' tab.");
@@ -197,6 +188,9 @@ namespace OutlookGoogleSync
                 return;
             }
 
+            AppointmentItemCache appointmentItemCache = new AppointmentItemCache();
+            EventCache eventCache = new EventCache();
+
             DateTime syncStarted = DateTime.Now;
             OutlookCalendar ocal = null;
 
@@ -210,7 +204,7 @@ namespace OutlookGoogleSync
                 List<AppointmentItemCacheEntry> OutlookEntries = new List<AppointmentItemCacheEntry>();
                 foreach (AppointmentItem a in ocal.getCalendarEntriesInRange(syncStarted))
                 {
-                    OutlookEntries.Add(_aiCache.GetAppointmentItemCacheEntry(a, ocal.AccountName));
+                    OutlookEntries.Add(appointmentItemCache.GetAppointmentItemCacheEntry(a, ocal.AccountName));
                 }
 
                 if (checkBoxCreateFiles.Checked)
@@ -238,7 +232,7 @@ namespace OutlookGoogleSync
                 List<EventCacheEntry> GoogleEntries = new List<EventCacheEntry>();
                 foreach (Event ev in gcal.getCalendarEntriesInRange(syncStarted))
                 {
-                    GoogleEntries.Add(_eventCache.GetEventCacheEntry(ev, accountName));
+                    GoogleEntries.Add(eventCache.GetEventCacheEntry(ev, accountName));
                 }
 
                 if (checkBoxCreateFiles.Checked)
@@ -382,14 +376,15 @@ namespace OutlookGoogleSync
                 logboxout("Error Syncing:\r\n" + ex.ToString());
             }
 
-            freeCOMResources(ocal);
+            eventCache.Clear();
+            freeCOMResources(ocal, appointmentItemCache);
         }
 
-        private void freeCOMResources(OutlookCalendar oc)
+        private void freeCOMResources(OutlookCalendar oc, AppointmentItemCache appointmentItemCache)
         {
             try
             {
-                _aiCache.ClearAndReleaseAll();
+                appointmentItemCache?.ClearAndReleaseAll();
                 if (oc != null && oc.UseOutlookCalendar != null)
                 {
                     Marshal.FinalReleaseComObject(oc.UseOutlookCalendar);
@@ -670,7 +665,7 @@ namespace OutlookGoogleSync
                 logboxout("Error Syncing:\r\n" + ex.ToString());
             }
 
-            freeCOMResources(ocal);
+            freeCOMResources(ocal, null);
         }
     }
 }

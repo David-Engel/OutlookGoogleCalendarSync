@@ -1,11 +1,11 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Windows.Forms;
+﻿using Google.Apis.Calendar.v3.Data;
 using Microsoft.Office.Interop.Outlook;
-using Google.Apis.Calendar.v3.Data;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace OutlookGoogleSync
 {
@@ -16,11 +16,11 @@ namespace OutlookGoogleSync
     {
         internal const string FILENAME = "settings.xml";
 
-        private Timer _ogstimer;
+        private readonly Timer _ogstimer;
         private DateTime _oldtime;
-        private List<int> _minuteOffsets = new List<int>();
+        private readonly List<int> _minuteOffsets = new List<int>();
         private FormWindowState _previousWindowState = FormWindowState.Normal;
-        private BackgroundWorker _syncWorker = new BackgroundWorker();
+        private readonly BackgroundWorker _syncWorker = new BackgroundWorker();
 
         public MainForm()
         {
@@ -30,7 +30,7 @@ namespace OutlookGoogleSync
             //load settings/create settings file
             if (File.Exists(FILENAME))
             {
-                Settings.Instance = XMLManager.import<Settings>(FILENAME);
+                Settings.Instance = XMLManager.Import<Settings>(FILENAME);
             }
             else
             {
@@ -55,22 +55,24 @@ namespace OutlookGoogleSync
             //set up timer (every 30s) for checking the minute offsets
             _ogstimer = new Timer();
             _ogstimer.Interval = 30000;
-            _ogstimer.Tick += new EventHandler(ogstimer_Tick);
+            _ogstimer.Tick += new EventHandler(Ogstimer_Tick);
             _ogstimer.Start();
             _oldtime = DateTime.Now;
 
             _syncWorker.WorkerReportsProgress = true;
             _syncWorker.WorkerSupportsCancellation = true;
-            _syncWorker.DoWork += syncWorker_DoWork;
+            _syncWorker.DoWork += SyncWorker_DoWork;
             _syncWorker.ProgressChanged += syncWorker_ProgressChanged;
             _syncWorker.RunWorkerCompleted += syncWorker_RunWorkerCompleted;
 
             //set up tooltips for some controls
-            ToolTip toolTip1 = new ToolTip();
-            toolTip1.AutoPopDelay = 10000;
-            toolTip1.InitialDelay = 500;
-            toolTip1.ReshowDelay = 200;
-            toolTip1.ShowAlways = true;
+            ToolTip toolTip1 = new ToolTip
+            {
+                AutoPopDelay = 10000,
+                InitialDelay = 500,
+                ReshowDelay = 200,
+                ShowAlways = true
+            };
             toolTip1.SetToolTip(comboBoxCalendars,
                 "The Google Calendar to synchonize with.");
             toolTip1.SetToolTip(textBoxMinuteOffsets,
@@ -101,7 +103,7 @@ namespace OutlookGoogleSync
             }
         }
 
-        private void ogstimer_Tick(object sender, EventArgs e)
+        private void Ogstimer_Tick(object sender, EventArgs e)
         {
             if (!checkBoxSyncEveryHour.Checked)
             {
@@ -124,12 +126,12 @@ namespace OutlookGoogleSync
                             );
                     }
 
-                    buttonSyncNow_Click(null, null);
+                    ButtonSyncNow_Click(null, null);
                 }
             }
         }
 
-        private void buttonGetMyGoogleCalendars_Click(object sender, EventArgs e)
+        private void ButtonGetMyGoogleCalendars_Click(object sender, EventArgs e)
         {
             buttonGetMyCalendars.Enabled = false;
             comboBoxCalendars.Enabled = false;
@@ -137,7 +139,7 @@ namespace OutlookGoogleSync
             try
             {
                 GoogleCalendar gcal = new GoogleCalendar();
-                List<GoogleCalendarListEntry> calendars = gcal.getCalendars();
+                List<GoogleCalendarListEntry> calendars = gcal.GetCalendars();
                 if (calendars != null)
                 {
                     comboBoxCalendars.Items.Clear();
@@ -158,7 +160,7 @@ namespace OutlookGoogleSync
             comboBoxCalendars.Enabled = true;
         }
 
-        private void buttonSyncNow_Click(object sender, EventArgs e)
+        private void ButtonSyncNow_Click(object sender, EventArgs e)
         {
             if (_syncWorker.IsBusy)
             {
@@ -179,10 +181,10 @@ namespace OutlookGoogleSync
             _syncWorker.RunWorkerAsync();
         }
 
-        private void syncWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void SyncWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (e.Argument is string &&
-                "DELETE".Equals((string)e.Argument))
+            if (e.Argument is string @string &&
+                "DELETE".Equals(@string))
             {
                 deleteAllSyncItems();
                 return;
@@ -230,7 +232,7 @@ namespace OutlookGoogleSync
 
                 GoogleCalendar gcal = new GoogleCalendar();
                 List<EventCacheEntry> GoogleEntries = new List<EventCacheEntry>();
-                foreach (Event ev in gcal.getCalendarEntriesInRange(syncStarted))
+                foreach (Event ev in gcal.GetCalendarEntriesInRange(syncStarted))
                 {
                     GoogleEntries.Add(eventCache.GetEventCacheEntry(ev, accountName));
                 }
@@ -249,7 +251,7 @@ namespace OutlookGoogleSync
                 logboxout("Found " + GoogleEntries.Count + " Google Calendar Entries.");
                 logboxout("--------------------------------------------------");
 
-                List<EventCacheEntry> GoogleEntriesToBeDeleted = identifyGoogleEntriesToBeDeleted(OutlookEntries, GoogleEntries, accountName);
+                List<EventCacheEntry> GoogleEntriesToBeDeleted = identifyGoogleEntriesToBeDeleted(OutlookEntries, GoogleEntries);
                 if (checkBoxCreateFiles.Checked)
                 {
                     using (TextWriter tw = new StreamWriter("export_to_be_deleted.txt"))
@@ -283,7 +285,7 @@ namespace OutlookGoogleSync
                 {
                     logboxout("Deleting " + GoogleEntriesToBeDeleted.Count + " Google Calendar Entries...");
                     foreach (EventCacheEntry ev in GoogleEntriesToBeDeleted)
-                        gcal.deleteCalendarEntry(ev.Event);
+                        gcal.DeleteCalendarEntry(ev.Event);
                     logboxout("Done.");
                     logboxout("--------------------------------------------------");
                 }
@@ -294,10 +296,11 @@ namespace OutlookGoogleSync
                     foreach (AppointmentItemCacheEntry aice in OutlookEntriesToBeCreated)
                     {
                         AppointmentItem ai = aice.AppointmentItem;
-                        Event ev = new Event();
-
-                        ev.Start = new EventDateTime();
-                        ev.End = new EventDateTime();
+                        Event ev = new Event
+                        {
+                            Start = new EventDateTime(),
+                            End = new EventDateTime()
+                        };
 
                         if (ai.AllDayEvent)
                         {
@@ -306,8 +309,8 @@ namespace OutlookGoogleSync
                         }
                         else
                         {
-                            ev.Start.DateTime = GoogleCalendar.GoogleTimeFrom(ai.Start);
-                            ev.End.DateTime = GoogleCalendar.GoogleTimeFrom(ai.End);
+                            ev.Start.DateTime = ai.Start;
+                            ev.End.DateTime = ai.End;
                         }
 
                         ev.Summary = ai.Subject;
@@ -330,11 +333,11 @@ namespace OutlookGoogleSync
                         //consider the reminder set in Outlook
                         if (checkBoxAddReminders.Checked && ai.ReminderSet)
                         {
-                            ev.Reminders = new Event.RemindersData();
-                            ev.Reminders.UseDefault = false;
                             EventReminder reminder = new EventReminder();
                             reminder.Method = "popup";
                             reminder.Minutes = ai.ReminderMinutesBeforeStart;
+                            ev.Reminders = new Event.RemindersData();
+                            ev.Reminders.UseDefault = false;
                             ev.Reminders.Overrides = new List<EventReminder>();
                             ev.Reminders.Overrides.Add(reminder);
                         }
@@ -359,7 +362,7 @@ namespace OutlookGoogleSync
                             ev.Description += Environment.NewLine + "==============================================";
                         }
 
-                        gcal.addEntry(ev);
+                        gcal.AddEntry(ev);
                     }
 
                     logboxout("Done.");
@@ -416,7 +419,7 @@ namespace OutlookGoogleSync
             return String.Join(Environment.NewLine, tmp1);
         }
 
-        private List<EventCacheEntry> identifyGoogleEntriesToBeDeleted(List<AppointmentItemCacheEntry> outlook, List<EventCacheEntry> google, string accountName)
+        private List<EventCacheEntry> identifyGoogleEntriesToBeDeleted(List<AppointmentItemCacheEntry> outlook, List<EventCacheEntry> google)
         {
             List<EventCacheEntry> result = new List<EventCacheEntry>();
             foreach (EventCacheEntry g in google)
@@ -518,8 +521,7 @@ namespace OutlookGoogleSync
             string[] chunks = textBoxMinuteOffsets.Text.Split(delimiters);
             foreach (string c in chunks)
             {
-                int min = 0;
-                int.TryParse(c, out min);
+                int.TryParse(c, out int min);
                 _minuteOffsets.Add(min);
             }
         }
@@ -631,7 +633,7 @@ namespace OutlookGoogleSync
 
                 logboxout("Reading Google Calendar Entries...");
                 GoogleCalendar gcal = new GoogleCalendar();
-                List<Event> GoogleEntries = gcal.getCalendarEntriesInRange(syncStarted);
+                List<Event> GoogleEntries = gcal.GetCalendarEntriesInRange(syncStarted);
                 List<Event> GoogleEntriesToDelete = new List<Event>();
                 foreach (Event ev in GoogleEntries)
                 {
@@ -648,7 +650,7 @@ namespace OutlookGoogleSync
                     if (!string.IsNullOrEmpty(ev.Description) &&
                     ev.Description.Contains("Added by OutlookGoogleSync (" + ocal.AccountName + "):"))
                     {
-                        gcal.deleteCalendarEntry(ev);
+                        gcal.DeleteCalendarEntry(ev);
                     }
                 }
 

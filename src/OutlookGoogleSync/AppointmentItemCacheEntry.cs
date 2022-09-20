@@ -2,22 +2,22 @@
 
 namespace OutlookGoogleSync
 {
-    public class AppointmentItemCacheEntry
+    internal class AppointmentItemCacheEntry
     {
-        public AppointmentItemCacheEntry(AppointmentItem appointmentItem, string fromAccount)
+        internal AppointmentItemCacheEntry(AppointmentItem appointmentItem, string fromAccount)
         {
             AppointmentItem = appointmentItem;
             FromAccount = fromAccount;
 
-            Signature = (GoogleCalendar.GoogleTimeFrom(appointmentItem.Start) + ";" +
-                GoogleCalendar.GoogleTimeFrom(appointmentItem.End) + ";" +
+            Signature = (appointmentItem.Start + ";" +
+                appointmentItem.End + ";" +
                 appointmentItem.Subject + ";" + appointmentItem.Location).Trim();
         }
 
-        public AppointmentItem AppointmentItem { get; }
+        internal AppointmentItem AppointmentItem { get; }
 
-        public string FromAccount { get; }
+        internal string FromAccount { get; }
 
-        public string Signature { get; }
+        internal string Signature { get; }
     }
 }

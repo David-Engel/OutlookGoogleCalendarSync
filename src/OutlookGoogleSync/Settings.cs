@@ -20,7 +20,6 @@
             }
         }
 
-        public string RefreshToken = "";
         public string MinuteOffsets = "";
         public int DaysInThePast = 1;
         public int DaysInTheFuture = 60;

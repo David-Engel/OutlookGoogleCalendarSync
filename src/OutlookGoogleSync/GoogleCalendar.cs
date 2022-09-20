@@ -1,25 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using System.Diagnostics;
-using DotNetOpenAuth.OAuth2;
-using Google.Apis.Authentication.OAuth2;
-using Google.Apis.Authentication.OAuth2.DotNetOpenAuth;
+﻿using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
+using Google.Apis.Services;
 using Google.Apis.Util;
+using Google.Apis.Util.Store;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using System.Threading;
 
 namespace OutlookGoogleSync
 {
     /// <summary>
     /// Description of GoogleCalendar.
     /// </summary>
-    public class GoogleCalendar
+    internal class GoogleCalendar
     {
 
         private static GoogleCalendar _instance;
+        private static readonly string appName = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyTitleAttribute>().Title;
 
-        public static GoogleCalendar Instance
+        internal static GoogleCalendar Instance
         {
             get
             {
@@ -29,61 +31,37 @@ namespace OutlookGoogleSync
             }
         }
 
-        CalendarService service;
+        private readonly CalendarService service;
 
-        public GoogleCalendar()
+        internal GoogleCalendar()
         {
-            var provider = new NativeApplicationClient(GoogleAuthenticationServer.Description);
-            provider.ClientIdentifier = "1048601141806-9ek0gtv3bjonb7cifqaedf8gh3e8sive.apps.googleusercontent.com";
-            provider.ClientSecret = "F6uRAziIV-EdFsb6oRjTAY45";
-            service = new CalendarService(new OAuth2Authenticator<NativeApplicationClient>(provider, GetAuthentication));
-            service.Key = "AIzaSyChF6Uf0z9PthPzZ1Qy2lHZ_OrXW6oMUBk";
+            UserCredential credential;
+
+            using (var stream =
+                new FileStream("gcs.json", FileMode.Open, FileAccess.Read))
+            {
+                // The file token.json stores the user's access and refresh tokens, and is created
+                // automatically when the authorization flow completes for the first time.
+                string credPath = @"token.json";
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    GoogleClientSecrets.FromStream(stream).Secrets,
+                    new string[] { CalendarService.ScopeConstants.CalendarReadonly, CalendarService.ScopeConstants.CalendarEvents },
+                    "user",
+                    CancellationToken.None,
+                    new FileDataStore(credPath, true)).Result;
+            }
+
+            // Create Google Calendar API service.
+            service = new CalendarService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = appName,
+            });
         }
 
-        private static IAuthorizationState GetAuthentication(NativeApplicationClient arg)
+        internal List<GoogleCalendarListEntry> GetCalendars()
         {
-            // Get the auth URL:
-            IAuthorizationState state = new AuthorizationState(new[] { CalendarService.Scopes.Calendar.GetStringValue() });
-            state.Callback = new Uri(NativeApplicationClient.OutOfBandCallbackUrl);
-            state.RefreshToken = Settings.Instance.RefreshToken;
-            Uri authUri = arg.RequestUserAuthorization(state);
-
-            IAuthorizationState result = null;
-
-            if (state.RefreshToken == "")
-            {
-                // Request authorization from the user (by opening a browser window):
-                Process.Start(authUri.ToString());
-
-                EnterAuthorizationCode eac = new EnterAuthorizationCode();
-                if (eac.ShowDialog() == DialogResult.OK)
-                {
-                    // Retrieve the access/refresh tokens by using the authorization code:
-                    result = arg.ProcessUserAuthorization(eac.authcode, state);
-
-                    //save the refresh token for future use
-                    Settings.Instance.RefreshToken = result.RefreshToken;
-                    XMLManager.Export(Settings.Instance, MainForm.FILENAME);
-
-                    return result;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                arg.RefreshToken(state, null);
-                result = state;
-                return result;
-            }
-        }
-
-        public List<GoogleCalendarListEntry> getCalendars()
-        {
-            CalendarList request = null;
-            request = service.CalendarList.List().Fetch();
+            CalendarList request = service.CalendarList.List().Execute();
 
             if (request != null)
             {
@@ -97,19 +75,17 @@ namespace OutlookGoogleSync
             return null;
         }
 
-        public List<Event> getCalendarEntriesInRange(DateTime syncDateTime)
+        internal List<Event> GetCalendarEntriesInRange(DateTime syncDateTime)
         {
             List<Event> result = new List<Event>();
-            Events request = null;
-
             EventsResource.ListRequest lr = service.Events.List(Settings.Instance.SelectedGoogleCalendar.Id);
 
-            lr.TimeMin = GoogleTimeFrom(syncDateTime.AddDays(-Settings.Instance.DaysInThePast));
-            lr.TimeMax = GoogleTimeFrom(syncDateTime.AddDays(+Settings.Instance.DaysInTheFuture + 1));
+            lr.TimeMin = syncDateTime.AddDays(-Settings.Instance.DaysInThePast);
+            lr.TimeMax = syncDateTime.AddDays(+Settings.Instance.DaysInTheFuture + 1);
             lr.SingleEvents = true;
-            lr.OrderBy = EventsResource.OrderBy.StartTime;
+            lr.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
 
-            request = lr.Fetch();
+            Events request = lr.Execute();
 
             // Fetch all pages of events
             if (request != null &&
@@ -119,7 +95,7 @@ namespace OutlookGoogleSync
                 while (request.NextPageToken != null)
                 {
                     lr.PageToken = request.NextPageToken;
-                    request = lr.Fetch();
+                    request = lr.Execute();
                     result.AddRange(request.Items);
                 }
             }
@@ -127,29 +103,14 @@ namespace OutlookGoogleSync
             return result;
         }
 
-        public void deleteCalendarEntry(Event e)
+        internal void DeleteCalendarEntry(Event e)
         {
-            string request = service.Events.Delete(Settings.Instance.SelectedGoogleCalendar.Id, e.Id).Fetch();
+            service.Events.Delete(Settings.Instance.SelectedGoogleCalendar.Id, e.Id).Execute();
         }
 
-        public void addEntry(Event e)
+        internal void AddEntry(Event e)
         {
-            var result = service.Events.Insert(e, Settings.Instance.SelectedGoogleCalendar.Id).Fetch();
-        }
-
-        //returns the Google Time Format String of a given .Net DateTime value
-        //Google Time Format = "2012-08-20T00:00:00+02:00"
-        public static string GoogleTimeFrom(DateTime dt)
-        {
-            string timezone = TimeZoneInfo.Local.GetUtcOffset(dt).ToString();
-            if (timezone[0] != '-')
-            {
-                timezone = '+' + timezone;
-            }
-
-            timezone = timezone.Substring(0, 6);
-            string result = dt.GetDateTimeFormats('s')[0] + timezone;
-            return result;
+            service.Events.Insert(e, Settings.Instance.SelectedGoogleCalendar.Id).Execute();
         }
     }
 }

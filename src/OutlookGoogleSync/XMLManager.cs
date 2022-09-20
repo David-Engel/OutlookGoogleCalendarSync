@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Xml.Serialization;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace OutlookGoogleSync
 {
@@ -21,11 +21,12 @@ namespace OutlookGoogleSync
         /// <param name="filename">The filename of the xml file to be written.</param>
         public static void Export(Object obj, string filename)
         {
-            XmlTextWriter writer = new XmlTextWriter(filename, null);
-            writer.Formatting = Formatting.Indented;
-            writer.Indentation = 4;
-            new XmlSerializer(obj.GetType()).Serialize(writer, obj);
-            writer.Close();
+            using (XmlTextWriter writer = new XmlTextWriter(filename, null))
+            {
+                writer.Formatting = Formatting.Indented;
+                writer.Indentation = 4;
+                new XmlSerializer(obj.GetType()).Serialize(writer, obj);
+            }
         }
 
         /// <summary>
@@ -33,12 +34,13 @@ namespace OutlookGoogleSync
         /// </summary>
         /// <param name="filename">The XML file from which to import.</param>
         /// <returns></returns>
-        public static T import<T>(string filename)
+        public static T Import<T>(string filename)
         {
-            FileStream fs = new FileStream(filename, FileMode.Open);
-            T result = (T)new XmlSerializer(typeof(T)).Deserialize(fs);
-            fs.Close();
-            return result;
+            using (FileStream fs = new FileStream(filename, FileMode.Open))
+            {
+                T result = (T)new XmlSerializer(typeof(T)).Deserialize(fs);
+                return result;
+            }
         }
     }
 }

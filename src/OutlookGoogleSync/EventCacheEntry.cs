@@ -3,9 +3,9 @@ using System;
 
 namespace OutlookGoogleSync
 {
-    public class EventCacheEntry
+    internal class EventCacheEntry
     {
-        public EventCacheEntry(Event @event, string fromAccount)
+        internal EventCacheEntry(Event @event, string fromAccount)
         {
             Event = @event;
             FromAccount = fromAccount;
@@ -19,11 +19,11 @@ namespace OutlookGoogleSync
             {
                 if (Event.Start.DateTime == null)
                 {
-                    Event.Start.DateTime = GoogleCalendar.GoogleTimeFrom(DateTime.Parse(Event.Start.Date));
+                    Event.Start.DateTime = DateTime.Parse(Event.Start.Date);
                 }
                 if (Event.End.DateTime == null)
                 {
-                    Event.End.DateTime = GoogleCalendar.GoogleTimeFrom(DateTime.Parse(Event.End.Date));
+                    Event.End.DateTime = DateTime.Parse(Event.End.Date);
                 }
 
                 Signature = (Event.Start.DateTime + ";" + Event.End.DateTime + ";" + Event.Summary + ";" + Event.Location).Trim();
@@ -34,12 +34,12 @@ namespace OutlookGoogleSync
             }
         }
 
-        public Event Event { get; }
+        internal Event Event { get; }
 
-        public bool IsSyncItem { get; } = false;
+        internal bool IsSyncItem { get; } = false;
 
-        public string FromAccount { get; }
+        internal string FromAccount { get; }
 
-        public string Signature { get; }
+        internal string Signature { get; }
     }
 }

@@ -1,18 +1,17 @@
 ﻿using Google.Apis.Calendar.v3.Data;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 namespace OutlookGoogleSync
 {
-    public class EventCache
+    internal class EventCache
     {
         private Dictionary<Event, EventCacheEntry> _cache = new Dictionary<Event, EventCacheEntry>();
 
-        public EventCache()
+        internal EventCache()
         {
         }
 
-        public EventCacheEntry GetEventCacheEntry(Event @event, string fromAccount)
+        internal EventCacheEntry GetEventCacheEntry(Event @event, string fromAccount)
         {
             if (!_cache.ContainsKey(@event))
             {
@@ -22,7 +21,7 @@ namespace OutlookGoogleSync
             return _cache[@event];
         }
 
-        public void Clear()
+        internal void Clear()
         {
             _cache.Clear();
         }

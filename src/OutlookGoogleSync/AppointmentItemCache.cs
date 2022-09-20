@@ -4,15 +4,15 @@ using System.Runtime.InteropServices;
 
 namespace OutlookGoogleSync
 {
-    public class AppointmentItemCache
+    internal class AppointmentItemCache
     {
         private Dictionary<AppointmentItem, AppointmentItemCacheEntry> _cache = new Dictionary<AppointmentItem, AppointmentItemCacheEntry>();
 
-        public AppointmentItemCache()
+        internal AppointmentItemCache()
         {
         }
 
-        public AppointmentItemCacheEntry GetAppointmentItemCacheEntry(AppointmentItem appointmentItem, string fromAccount)
+        internal AppointmentItemCacheEntry GetAppointmentItemCacheEntry(AppointmentItem appointmentItem, string fromAccount)
         {
             if (!_cache.ContainsKey(appointmentItem))
             {
@@ -22,7 +22,7 @@ namespace OutlookGoogleSync
             return _cache[appointmentItem];
         }
 
-        public void ClearAndReleaseAll()
+        internal void ClearAndReleaseAll()
         {
             foreach (AppointmentItem ai in _cache.Keys)
             {

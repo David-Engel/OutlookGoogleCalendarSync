@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Outlook;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using Microsoft.Office.Interop.Outlook;
 
 namespace OutlookGoogleSync
 {

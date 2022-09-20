@@ -142,7 +142,7 @@ namespace OutlookGoogleSync
             this.buttonSyncNow.TabIndex = 0;
             this.buttonSyncNow.Text = "Sync now";
             this.buttonSyncNow.UseVisualStyleBackColor = true;
-            this.buttonSyncNow.Click += new System.EventHandler(this.buttonSyncNow_Click);
+            this.buttonSyncNow.Click += new System.EventHandler(this.ButtonSyncNow_Click);
             // 
             // tabPageSettings
             // 
@@ -322,7 +322,7 @@ namespace OutlookGoogleSync
             this.buttonGetMyCalendars.TabIndex = 5;
             this.buttonGetMyCalendars.Text = "Get My\r\nGoogle Calendars";
             this.buttonGetMyCalendars.UseVisualStyleBackColor = true;
-            this.buttonGetMyCalendars.Click += new System.EventHandler(this.buttonGetMyGoogleCalendars_Click);
+            this.buttonGetMyCalendars.Click += new System.EventHandler(this.ButtonGetMyGoogleCalendars_Click);
             // 
             // comboBoxCalendars
             // 

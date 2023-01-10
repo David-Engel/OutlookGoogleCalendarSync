@@ -3,3 +3,4 @@ obj
 *.suo
 .vs
 /src/packages
+/src/OutlookGoogleSync/gcs.json

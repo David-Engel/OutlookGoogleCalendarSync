@@ -24,6 +24,7 @@
         public int DaysInThePast = 1;
         public int DaysInTheFuture = 60;
         public GoogleCalendarListEntry SelectedGoogleCalendar = new GoogleCalendarListEntry();
+        public OutlookCalendar OutlookCalendarToSync = new OutlookCalendar();
 
         public bool SyncEveryHour = false;
         public bool ShowBubbleTooltipWhenSyncing = false;

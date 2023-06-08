@@ -46,6 +46,9 @@ namespace OutlookGoogleSync
             this.textBoxLogs = new System.Windows.Forms.TextBox();
             this.buttonSyncNow = new System.Windows.Forms.Button();
             this.tabPageSettings = new System.Windows.Forms.TabPage();
+            this.groupBoxOutlookCalendar = new System.Windows.Forms.GroupBox();
+            this.labelOutlookCalendar = new System.Windows.Forms.Label();
+            this.comboBoxOutlookCalendars = new System.Windows.Forms.ComboBox();
             this.groupBoxWhenCreating = new System.Windows.Forms.GroupBox();
             this.checkBoxAddReminders = new System.Windows.Forms.CheckBox();
             this.checkBoxAddAttendees = new System.Windows.Forms.CheckBox();
@@ -61,7 +64,7 @@ namespace OutlookGoogleSync
             this.groupBoxGoogleCalendar = new System.Windows.Forms.GroupBox();
             this.labelUseGoogleCalendar = new System.Windows.Forms.Label();
             this.buttonGetMyCalendars = new System.Windows.Forms.Button();
-            this.comboBoxCalendars = new System.Windows.Forms.ComboBox();
+            this.comboBoxGoogleCalendars = new System.Windows.Forms.ComboBox();
             this.buttonSave = new System.Windows.Forms.Button();
             this.groupBoxSyncDataRange = new System.Windows.Forms.GroupBox();
             this.numericUpDownDaysInTheFuture = new System.Windows.Forms.NumericUpDown();
@@ -72,9 +75,11 @@ namespace OutlookGoogleSync
             this.linkLabelUrl = new System.Windows.Forms.LinkLabel();
             this.labelAbout = new System.Windows.Forms.Label();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.buttonLoadOutlookCalendars = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPageSync.SuspendLayout();
             this.tabPageSettings.SuspendLayout();
+            this.groupBoxOutlookCalendar.SuspendLayout();
             this.groupBoxWhenCreating.SuspendLayout();
             this.groupBoxOptions.SuspendLayout();
             this.groupBoxSyncRegularly.SuspendLayout();
@@ -104,7 +109,7 @@ namespace OutlookGoogleSync
             this.tabPageSync.Controls.Add(this.buttonSyncNow);
             this.tabPageSync.Location = new System.Drawing.Point(4, 22);
             this.tabPageSync.Name = "tabPageSync";
-            this.tabPageSync.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPageSync.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageSync.Size = new System.Drawing.Size(511, 503);
             this.tabPageSync.TabIndex = 0;
             this.tabPageSync.Text = "Sync";
@@ -116,7 +121,7 @@ namespace OutlookGoogleSync
             this.buttonDeleteAll.Location = new System.Drawing.Point(350, 467);
             this.buttonDeleteAll.Name = "buttonDeleteAll";
             this.buttonDeleteAll.Size = new System.Drawing.Size(158, 31);
-            this.buttonDeleteAll.TabIndex = 2;
+            this.buttonDeleteAll.TabIndex = 8;
             this.buttonDeleteAll.Text = "Delete All Sync Entries";
             this.buttonDeleteAll.UseVisualStyleBackColor = true;
             this.buttonDeleteAll.Click += new System.EventHandler(this.buttonDeleteAll_Click);
@@ -139,13 +144,14 @@ namespace OutlookGoogleSync
             this.buttonSyncNow.Location = new System.Drawing.Point(5, 467);
             this.buttonSyncNow.Name = "buttonSyncNow";
             this.buttonSyncNow.Size = new System.Drawing.Size(98, 31);
-            this.buttonSyncNow.TabIndex = 0;
+            this.buttonSyncNow.TabIndex = 5;
             this.buttonSyncNow.Text = "Sync now";
             this.buttonSyncNow.UseVisualStyleBackColor = true;
             this.buttonSyncNow.Click += new System.EventHandler(this.ButtonSyncNow_Click);
             // 
             // tabPageSettings
             // 
+            this.tabPageSettings.Controls.Add(this.groupBoxOutlookCalendar);
             this.tabPageSettings.Controls.Add(this.groupBoxWhenCreating);
             this.tabPageSettings.Controls.Add(this.groupBoxOptions);
             this.tabPageSettings.Controls.Add(this.groupBoxSyncRegularly);
@@ -154,11 +160,45 @@ namespace OutlookGoogleSync
             this.tabPageSettings.Controls.Add(this.groupBoxSyncDataRange);
             this.tabPageSettings.Location = new System.Drawing.Point(4, 22);
             this.tabPageSettings.Name = "tabPageSettings";
-            this.tabPageSettings.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPageSettings.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageSettings.Size = new System.Drawing.Size(511, 503);
             this.tabPageSettings.TabIndex = 1;
             this.tabPageSettings.Text = "Settings";
             this.tabPageSettings.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxOutlookCalendar
+            // 
+            this.groupBoxOutlookCalendar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxOutlookCalendar.Controls.Add(this.buttonLoadOutlookCalendars);
+            this.groupBoxOutlookCalendar.Controls.Add(this.labelOutlookCalendar);
+            this.groupBoxOutlookCalendar.Controls.Add(this.comboBoxOutlookCalendars);
+            this.groupBoxOutlookCalendar.Location = new System.Drawing.Point(6, 6);
+            this.groupBoxOutlookCalendar.Name = "groupBoxOutlookCalendar";
+            this.groupBoxOutlookCalendar.Size = new System.Drawing.Size(499, 52);
+            this.groupBoxOutlookCalendar.TabIndex = 0;
+            this.groupBoxOutlookCalendar.TabStop = false;
+            this.groupBoxOutlookCalendar.Text = "Outlook Calendar (from)";
+            // 
+            // labelOutlookCalendar
+            // 
+            this.labelOutlookCalendar.Location = new System.Drawing.Point(6, 21);
+            this.labelOutlookCalendar.Name = "labelOutlookCalendar";
+            this.labelOutlookCalendar.Size = new System.Drawing.Size(93, 23);
+            this.labelOutlookCalendar.TabIndex = 3;
+            this.labelOutlookCalendar.Text = "Outlook Calendar:";
+            // 
+            // comboBoxOutlookCalendars
+            // 
+            this.comboBoxOutlookCalendars.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxOutlookCalendars.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOutlookCalendars.FormattingEnabled = true;
+            this.comboBoxOutlookCalendars.Location = new System.Drawing.Point(105, 19);
+            this.comboBoxOutlookCalendars.Name = "comboBoxOutlookCalendars";
+            this.comboBoxOutlookCalendars.Size = new System.Drawing.Size(267, 21);
+            this.comboBoxOutlookCalendars.TabIndex = 1;
+            this.comboBoxOutlookCalendars.SelectedIndexChanged += new System.EventHandler(this.comboBoxOutlookCalendars_SelectedIndexChanged);
             // 
             // groupBoxWhenCreating
             // 
@@ -167,7 +207,7 @@ namespace OutlookGoogleSync
             this.groupBoxWhenCreating.Controls.Add(this.checkBoxAddReminders);
             this.groupBoxWhenCreating.Controls.Add(this.checkBoxAddAttendees);
             this.groupBoxWhenCreating.Controls.Add(this.checkBoxAddDescription);
-            this.groupBoxWhenCreating.Location = new System.Drawing.Point(6, 171);
+            this.groupBoxWhenCreating.Location = new System.Drawing.Point(6, 229);
             this.groupBoxWhenCreating.Name = "groupBoxWhenCreating";
             this.groupBoxWhenCreating.Size = new System.Drawing.Size(499, 112);
             this.groupBoxWhenCreating.TabIndex = 15;
@@ -211,7 +251,7 @@ namespace OutlookGoogleSync
             this.groupBoxOptions.Controls.Add(this.checkBoxMinimizeToTray);
             this.groupBoxOptions.Controls.Add(this.checkBoxStartInTray);
             this.groupBoxOptions.Controls.Add(this.checkBoxCreateFiles);
-            this.groupBoxOptions.Location = new System.Drawing.Point(6, 289);
+            this.groupBoxOptions.Location = new System.Drawing.Point(6, 347);
             this.groupBoxOptions.Name = "groupBoxOptions";
             this.groupBoxOptions.Size = new System.Drawing.Size(499, 115);
             this.groupBoxOptions.TabIndex = 20;
@@ -255,7 +295,7 @@ namespace OutlookGoogleSync
             this.groupBoxSyncRegularly.Controls.Add(this.checkBoxShowBubbleTooltips);
             this.groupBoxSyncRegularly.Controls.Add(this.checkBoxSyncEveryHour);
             this.groupBoxSyncRegularly.Controls.Add(this.textBoxMinuteOffsets);
-            this.groupBoxSyncRegularly.Location = new System.Drawing.Point(177, 80);
+            this.groupBoxSyncRegularly.Location = new System.Drawing.Point(177, 138);
             this.groupBoxSyncRegularly.Name = "groupBoxSyncRegularly";
             this.groupBoxSyncRegularly.Size = new System.Drawing.Size(328, 85);
             this.groupBoxSyncRegularly.TabIndex = 10;
@@ -296,21 +336,21 @@ namespace OutlookGoogleSync
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxGoogleCalendar.Controls.Add(this.labelUseGoogleCalendar);
             this.groupBoxGoogleCalendar.Controls.Add(this.buttonGetMyCalendars);
-            this.groupBoxGoogleCalendar.Controls.Add(this.comboBoxCalendars);
-            this.groupBoxGoogleCalendar.Location = new System.Drawing.Point(6, 6);
+            this.groupBoxGoogleCalendar.Controls.Add(this.comboBoxGoogleCalendars);
+            this.groupBoxGoogleCalendar.Location = new System.Drawing.Point(6, 64);
             this.groupBoxGoogleCalendar.Name = "groupBoxGoogleCalendar";
             this.groupBoxGoogleCalendar.Size = new System.Drawing.Size(499, 68);
-            this.groupBoxGoogleCalendar.TabIndex = 0;
+            this.groupBoxGoogleCalendar.TabIndex = 2;
             this.groupBoxGoogleCalendar.TabStop = false;
-            this.groupBoxGoogleCalendar.Text = "Google Calendar";
+            this.groupBoxGoogleCalendar.Text = "Google Calendar (to)";
             // 
             // labelUseGoogleCalendar
             // 
             this.labelUseGoogleCalendar.Location = new System.Drawing.Point(6, 33);
             this.labelUseGoogleCalendar.Name = "labelUseGoogleCalendar";
-            this.labelUseGoogleCalendar.Size = new System.Drawing.Size(112, 23);
+            this.labelUseGoogleCalendar.Size = new System.Drawing.Size(93, 23);
             this.labelUseGoogleCalendar.TabIndex = 3;
-            this.labelUseGoogleCalendar.Text = "Use Google Calendar:";
+            this.labelUseGoogleCalendar.Text = "Google Calendar:";
             // 
             // buttonGetMyCalendars
             // 
@@ -324,17 +364,17 @@ namespace OutlookGoogleSync
             this.buttonGetMyCalendars.UseVisualStyleBackColor = true;
             this.buttonGetMyCalendars.Click += new System.EventHandler(this.ButtonGetMyGoogleCalendars_Click);
             // 
-            // comboBoxCalendars
+            // comboBoxGoogleCalendars
             // 
-            this.comboBoxCalendars.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.comboBoxGoogleCalendars.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxCalendars.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxCalendars.FormattingEnabled = true;
-            this.comboBoxCalendars.Location = new System.Drawing.Point(123, 31);
-            this.comboBoxCalendars.Name = "comboBoxCalendars";
-            this.comboBoxCalendars.Size = new System.Drawing.Size(249, 21);
-            this.comboBoxCalendars.TabIndex = 1;
-            this.comboBoxCalendars.SelectedIndexChanged += new System.EventHandler(this.comboBoxCalendars_SelectedIndexChanged);
+            this.comboBoxGoogleCalendars.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxGoogleCalendars.FormattingEnabled = true;
+            this.comboBoxGoogleCalendars.Location = new System.Drawing.Point(105, 31);
+            this.comboBoxGoogleCalendars.Name = "comboBoxGoogleCalendars";
+            this.comboBoxGoogleCalendars.Size = new System.Drawing.Size(267, 21);
+            this.comboBoxGoogleCalendars.TabIndex = 1;
+            this.comboBoxGoogleCalendars.SelectedIndexChanged += new System.EventHandler(this.comboBoxCalendars_SelectedIndexChanged);
             // 
             // buttonSave
             // 
@@ -353,7 +393,7 @@ namespace OutlookGoogleSync
             this.groupBoxSyncDataRange.Controls.Add(this.numericUpDownDaysInThePast);
             this.groupBoxSyncDataRange.Controls.Add(this.labelDaysInTheFuture);
             this.groupBoxSyncDataRange.Controls.Add(this.labelDaysInThePast);
-            this.groupBoxSyncDataRange.Location = new System.Drawing.Point(6, 80);
+            this.groupBoxSyncDataRange.Location = new System.Drawing.Point(6, 138);
             this.groupBoxSyncDataRange.Name = "groupBoxSyncDataRange";
             this.groupBoxSyncDataRange.Size = new System.Drawing.Size(165, 85);
             this.groupBoxSyncDataRange.TabIndex = 5;
@@ -398,7 +438,7 @@ namespace OutlookGoogleSync
             this.tabPageAbout.Controls.Add(this.labelAbout);
             this.tabPageAbout.Location = new System.Drawing.Point(4, 22);
             this.tabPageAbout.Name = "tabPageAbout";
-            this.tabPageAbout.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPageAbout.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageAbout.Size = new System.Drawing.Size(511, 503);
             this.tabPageAbout.TabIndex = 2;
             this.tabPageAbout.Text = "About";
@@ -435,6 +475,18 @@ namespace OutlookGoogleSync
             this.notifyIcon1.Text = "OutlookGoogleSync";
             this.notifyIcon1.Click += new System.EventHandler(this.notifyIcon1_Click);
             // 
+            // buttonLoadOutlookCalendars
+            // 
+            this.buttonLoadOutlookCalendars.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonLoadOutlookCalendars.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonLoadOutlookCalendars.Location = new System.Drawing.Point(379, 8);
+            this.buttonLoadOutlookCalendars.Name = "buttonLoadOutlookCalendars";
+            this.buttonLoadOutlookCalendars.Size = new System.Drawing.Size(114, 40);
+            this.buttonLoadOutlookCalendars.TabIndex = 6;
+            this.buttonLoadOutlookCalendars.Text = "Load Outlook Calendars";
+            this.buttonLoadOutlookCalendars.UseVisualStyleBackColor = true;
+            this.buttonLoadOutlookCalendars.Click += new System.EventHandler(this.buttonLoadOutlookCalendars_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -450,6 +502,7 @@ namespace OutlookGoogleSync
             this.tabPageSync.ResumeLayout(false);
             this.tabPageSync.PerformLayout();
             this.tabPageSettings.ResumeLayout(false);
+            this.groupBoxOutlookCalendar.ResumeLayout(false);
             this.groupBoxWhenCreating.ResumeLayout(false);
             this.groupBoxOptions.ResumeLayout(false);
             this.groupBoxSyncRegularly.ResumeLayout(false);
@@ -481,7 +534,7 @@ namespace OutlookGoogleSync
         private System.Windows.Forms.TextBox textBoxLogs;
         private System.Windows.Forms.GroupBox groupBoxGoogleCalendar;
         private System.Windows.Forms.Label labelUseGoogleCalendar;
-        public System.Windows.Forms.ComboBox comboBoxCalendars;
+        public System.Windows.Forms.ComboBox comboBoxGoogleCalendars;
         private System.Windows.Forms.Label labelDaysInThePast;
         private System.Windows.Forms.Label labelDaysInTheFuture;
         private System.Windows.Forms.GroupBox groupBoxSyncDataRange;
@@ -494,14 +547,9 @@ namespace OutlookGoogleSync
         private System.Windows.Forms.NumericUpDown numericUpDownDaysInTheFuture;
         private System.Windows.Forms.NumericUpDown numericUpDownDaysInThePast;
         private System.Windows.Forms.Button buttonDeleteAll;
-
-
-
-
-
-
-
-
-
+        private System.Windows.Forms.GroupBox groupBoxOutlookCalendar;
+        private System.Windows.Forms.Label labelOutlookCalendar;
+        public System.Windows.Forms.ComboBox comboBoxOutlookCalendars;
+        private System.Windows.Forms.Button buttonLoadOutlookCalendars;
     }
 }

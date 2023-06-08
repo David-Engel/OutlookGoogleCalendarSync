@@ -41,8 +41,8 @@ namespace OutlookGoogleSync
             numericUpDownDaysInThePast.Value = Settings.Instance.DaysInThePast;
             numericUpDownDaysInTheFuture.Value = Settings.Instance.DaysInTheFuture;
             textBoxMinuteOffsets.Text = Settings.Instance.MinuteOffsets;
-            comboBoxCalendars.Items.Add(Settings.Instance.SelectedGoogleCalendar);
-            comboBoxCalendars.SelectedIndex = 0;
+            comboBoxGoogleCalendars.Items.Add(Settings.Instance.SelectedGoogleCalendar);
+            comboBoxGoogleCalendars.SelectedIndex = 0;
             checkBoxSyncEveryHour.Checked = Settings.Instance.SyncEveryHour;
             checkBoxShowBubbleTooltips.Checked = Settings.Instance.ShowBubbleTooltipWhenSyncing;
             checkBoxStartInTray.Checked = Settings.Instance.StartInTray;
@@ -51,6 +51,10 @@ namespace OutlookGoogleSync
             checkBoxAddAttendees.Checked = Settings.Instance.AddAttendeesToDescription;
             checkBoxAddReminders.Checked = Settings.Instance.AddReminders;
             checkBoxCreateFiles.Checked = Settings.Instance.CreateTextFiles;
+
+            comboBoxOutlookCalendars.Items.Clear();
+            comboBoxOutlookCalendars.Items.Add(Settings.Instance.OutlookCalendarToSync);
+            comboBoxOutlookCalendars.SelectedIndex = 0;
 
             //set up timer (every 30s) for checking the minute offsets
             _ogstimer = new Timer();
@@ -73,7 +77,7 @@ namespace OutlookGoogleSync
                 ReshowDelay = 200,
                 ShowAlways = true
             };
-            toolTip1.SetToolTip(comboBoxCalendars,
+            toolTip1.SetToolTip(comboBoxGoogleCalendars,
                 "The Google Calendar to synchonize with.");
             toolTip1.SetToolTip(textBoxMinuteOffsets,
                 "One ore more Minute Offsets at which the sync is automatically started each hour. \n" +
@@ -134,7 +138,7 @@ namespace OutlookGoogleSync
         private void ButtonGetMyGoogleCalendars_Click(object sender, EventArgs e)
         {
             buttonGetMyCalendars.Enabled = false;
-            comboBoxCalendars.Enabled = false;
+            comboBoxGoogleCalendars.Enabled = false;
 
             try
             {
@@ -142,13 +146,13 @@ namespace OutlookGoogleSync
                 List<GoogleCalendarListEntry> calendars = gcal.GetCalendars();
                 if (calendars != null)
                 {
-                    comboBoxCalendars.Items.Clear();
+                    comboBoxGoogleCalendars.Items.Clear();
                     foreach (GoogleCalendarListEntry mcle in calendars)
                     {
-                        comboBoxCalendars.Items.Add(mcle);
+                        comboBoxGoogleCalendars.Items.Add(mcle);
                     }
 
-                    comboBoxCalendars.SelectedIndex = 0;
+                    comboBoxGoogleCalendars.SelectedIndex = 0;
                 }
             }
             catch (System.Exception ex)
@@ -157,7 +161,7 @@ namespace OutlookGoogleSync
             }
 
             buttonGetMyCalendars.Enabled = true;
-            comboBoxCalendars.Enabled = true;
+            comboBoxGoogleCalendars.Enabled = true;
         }
 
         private void ButtonSyncNow_Click(object sender, EventArgs e)
@@ -194,7 +198,7 @@ namespace OutlookGoogleSync
             EventCache eventCache = new EventCache();
 
             DateTime syncStarted = DateTime.Now;
-            OutlookCalendar ocal = null;
+            OutlookCalendar ocal = Settings.Instance.OutlookCalendarToSync;
 
             try
             {
@@ -202,11 +206,10 @@ namespace OutlookGoogleSync
                 logboxout("--------------------------------------------------");
 
                 logboxout("Reading Outlook Calendar Entries...");
-                ocal = new OutlookCalendar();
                 List<AppointmentItemCacheEntry> OutlookEntries = new List<AppointmentItemCacheEntry>();
-                foreach (AppointmentItem a in ocal.getCalendarEntriesInRange(syncStarted))
+                foreach (AppointmentItem a in Settings.Instance.OutlookCalendarToSync.GetAppointmentItemsInRange(syncStarted))
                 {
-                    OutlookEntries.Add(appointmentItemCache.GetAppointmentItemCacheEntry(a, ocal.AccountName));
+                    OutlookEntries.Add(appointmentItemCache.GetAppointmentItemCacheEntry(a, ocal.ToString()));
                 }
 
                 if (checkBoxCreateFiles.Checked)
@@ -224,17 +227,11 @@ namespace OutlookGoogleSync
                 logboxout("--------------------------------------------------");
                 logboxout("Reading Google Calendar Entries...");
 
-                string accountName = "(Empty)";
-                if (ocal != null || !string.IsNullOrEmpty(ocal.AccountName))
-                {
-                    accountName = ocal.AccountName;
-                }
-
                 GoogleCalendar gcal = new GoogleCalendar();
                 List<EventCacheEntry> GoogleEntries = new List<EventCacheEntry>();
                 foreach (Event ev in gcal.GetCalendarEntriesInRange(syncStarted))
                 {
-                    GoogleEntries.Add(eventCache.GetEventCacheEntry(ev, accountName));
+                    GoogleEntries.Add(eventCache.GetEventCacheEntry(ev, ocal.ToString()));
                 }
 
                 if (checkBoxCreateFiles.Checked)
@@ -347,20 +344,21 @@ namespace OutlookGoogleSync
                             ev.Reminders.UseDefault = false;
                         }
 
+                        ev.Description += Environment.NewLine;
+                        ev.Description += Environment.NewLine + "==============================================";
+                        ev.Description += Environment.NewLine + "Added by OutlookGoogleSync (" + ocal.ToString() + "):" + Environment.NewLine;
+
                         if (checkBoxAddAttendees.Checked)
                         {
-                            ev.Description += Environment.NewLine;
-                            ev.Description += Environment.NewLine + "==============================================";
-                            ev.Description += Environment.NewLine + "Added by OutlookGoogleSync (" + accountName + "):" + Environment.NewLine;
                             ev.Description += Environment.NewLine + "ORGANIZER: " + Environment.NewLine + ai.Organizer + Environment.NewLine;
                             ev.Description += Environment.NewLine + "REQUIRED: " + Environment.NewLine + splitAttendees(ai.RequiredAttendees) + Environment.NewLine;
                             if (ai.OptionalAttendees != null)
                             {
                                 ev.Description += Environment.NewLine + "OPTIONAL: " + Environment.NewLine + splitAttendees(ai.OptionalAttendees);
                             }
-
-                            ev.Description += Environment.NewLine + "==============================================";
                         }
+
+                        ev.Description += Environment.NewLine + "==============================================";
 
                         gcal.AddEntry(ev);
                     }
@@ -388,10 +386,6 @@ namespace OutlookGoogleSync
             try
             {
                 appointmentItemCache?.ClearAndReleaseAll();
-                if (oc != null && oc.UseOutlookCalendar != null)
-                {
-                    Marshal.FinalReleaseComObject(oc.UseOutlookCalendar);
-                }
 
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
@@ -499,7 +493,7 @@ namespace OutlookGoogleSync
 
         private void comboBoxCalendars_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Settings.Instance.SelectedGoogleCalendar = (GoogleCalendarListEntry)comboBoxCalendars.SelectedItem;
+            Settings.Instance.SelectedGoogleCalendar = (GoogleCalendarListEntry)comboBoxGoogleCalendars.SelectedItem;
         }
 
         private void numericUpDownDaysInThePast_ValueChanged(object sender, EventArgs e)
@@ -622,14 +616,12 @@ namespace OutlookGoogleSync
         private void deleteAllSyncItems()
         {
             DateTime syncStarted = DateTime.Now;
-            OutlookCalendar ocal = null;
+            OutlookCalendar ocal = Settings.Instance.OutlookCalendarToSync;
 
             try
             {
                 logboxout("Sync started at " + syncStarted.ToString());
                 logboxout("--------------------------------------------------");
-
-                ocal = new OutlookCalendar();
 
                 logboxout("Reading Google Calendar Entries...");
                 GoogleCalendar gcal = new GoogleCalendar();
@@ -638,7 +630,7 @@ namespace OutlookGoogleSync
                 foreach (Event ev in GoogleEntries)
                 {
                     if (!string.IsNullOrEmpty(ev.Description) &&
-                    ev.Description.Contains("Added by OutlookGoogleSync (" + ocal.AccountName + "):"))
+                    ev.Description.Contains("Added by OutlookGoogleSync ("))
                     {
                         GoogleEntriesToDelete.Add(ev);
                     }
@@ -647,11 +639,7 @@ namespace OutlookGoogleSync
                 logboxout("Deleting " + GoogleEntriesToDelete.Count + " Google Calendar Sync Entries...");
                 foreach (Event ev in GoogleEntriesToDelete)
                 {
-                    if (!string.IsNullOrEmpty(ev.Description) &&
-                    ev.Description.Contains("Added by OutlookGoogleSync (" + ocal.AccountName + "):"))
-                    {
-                        gcal.DeleteCalendarEntry(ev);
-                    }
+                    gcal.DeleteCalendarEntry(ev);
                 }
 
                 logboxout("Done.");
@@ -668,6 +656,35 @@ namespace OutlookGoogleSync
             }
 
             freeCOMResources(ocal, null);
+        }
+
+        private void comboBoxOutlookCalendars_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Settings.Instance.OutlookCalendarToSync = (OutlookCalendar)comboBoxOutlookCalendars.SelectedItem;
+        }
+
+        private void buttonLoadOutlookCalendars_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            OutlookCalendar saved = Settings.Instance.OutlookCalendarToSync;
+            try
+            {
+                comboBoxOutlookCalendars.Items.Clear();
+                foreach (OutlookCalendar cal in OutlookHelper.GetCalendars())
+                {
+                    int position = comboBoxOutlookCalendars.Items.Add(cal);
+                    if (cal.ToString().Equals(saved.ToString()))
+                    {
+                        comboBoxOutlookCalendars.SelectedIndex = position;
+                    }
+                }
+                Cursor.Current = Cursors.Default;
+            }
+            catch (System.Exception ex)
+            {
+                Cursor.Current = Cursors.Default;
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }
